@@ -1,6 +1,7 @@
 extends CharacterBody2D
+class_name Enemy
 
-@export var speed: float = 100.0
+@export var speed: float = 85.0
 @export var acceleration: float = 500.0
 @export var friction: float = 300.0
 
@@ -8,6 +9,8 @@ extends CharacterBody2D
 @export var separation_force: float = 150.0
 @export var follow_distance: float = 20.0
 @export var follow_deadzone: float = 5.0
+
+@export var health: float = 1.0
 
 var player: Node2D
 var nearby_enemies: Array[Node2D] = []
@@ -77,8 +80,9 @@ func calculate_separation_direction() -> Vector2:
 
 
 func hit_by_vacuum():
-	print_debug("hit!")
-	queue_free()
+	health += -Global.mainWeaponDamage
+	if health <= 0:
+		die()
 
 func die():
 	queue_free()

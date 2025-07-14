@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=3 format=3 uid="uid://btc6n1xi5id"]
+
+[ext_resource type="PackedScene" uid="uid://cd1n33uib0d8y" path="res://Scenes/Enemy/enemy_boss.tscn" id="1_58saf"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="1_o7jal"]
+
+[resource]
+script = ExtResource("1_o7jal")
+delay = 10.0
+spawn_type = "normal"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_58saf"): 1
+})
+endWaveTrigger = "defeat"
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

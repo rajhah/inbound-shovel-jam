@@ -47,6 +47,7 @@ position = Vector2(-8, 5)
 shape = SubResource("RectangleShape2D_pbw6q")
 
 [node name="suck_timer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="suck_timer" to="Area2D" method="_on_suck_timer_timeout"]

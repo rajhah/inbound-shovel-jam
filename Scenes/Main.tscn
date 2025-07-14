@@ -20,6 +20,4 @@ stretch_mode = 1
 
 [node name="player" parent="." instance=ExtResource("2_kln2b")]
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_rgh2o")]
-enemyNumber = 5
-player = NodePath("../player")
+[node name="Enemy Spawner" parent="." instance=ExtResource("4_rgh2o")]
