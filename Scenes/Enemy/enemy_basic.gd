@@ -1,7 +1,10 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var speed: float = 85.0
+@export var xpOnDeath: int = 4
+@export var contactDamage: int = 10
+
+@export var speed: float = 65.0
 @export var acceleration: float = 500.0
 @export var friction: float = 300.0
 
@@ -12,10 +15,21 @@ class_name Enemy
 
 @export var health: float = 1.0
 
+@export var downTime: int = 10
+
 var player: Node2D
 var nearby_enemies: Array[Node2D] = []
+@onready var downTimer: Timer = $downTimer
+var downState = false
+
+@onready var col: CollisionShape2D = $CollisionShape2D
+
+signal dead
 
 func _ready():
+	downTimer.wait_time = downTime
+	downTimer.stop()
+
 	player = get_tree().get_first_node_in_group("player")
 	if not player:
 		print("Warning: No player found in 'player' group")
@@ -23,6 +37,9 @@ func _ready():
 
 func _physics_process(delta):
 	if not player:
+		return
+
+	if downState:
 		return
 
 	update_nearby_enemies()
@@ -36,6 +53,14 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	move_and_slide()
+
+	check_collisions()
+
+func check_collisions():
+	if get_slide_collision_count() > 0:
+		var collision = get_slide_collision(0)
+		if collision.get_collider().name == "player":
+			player._lose_hp(contactDamage)
 
 func update_nearby_enemies():
 	nearby_enemies.clear()
@@ -78,11 +103,25 @@ func calculate_separation_direction() -> Vector2:
 
 	return separation_vec.normalized() * (separation_force / 100.0)
 
-
-func hit_by_vacuum():
+func hit_by_vacuum(vacPos: Vector2):
 	health += -Global.mainWeaponDamage
-	if health <= 0:
-		die()
+	if health == 0:
+		downTimer.start()
+		downState = true
+	elif health < 0:
+		get_collected(vacPos)
+
+func _on_down_timer_timeout() -> void:
+	downState = false
+
+func get_collected(vacPos: Vector2):
+	player._gain_xp(xpOnDeath)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", vacPos, 0.25)
+	tween.parallel().tween_property(self, "rotation", PI, 0.25)
+	tween.parallel().tween_property(self, "scale", Vector2.ZERO, 0.4)
+	tween.tween_callback(die)
 
 func die():
+	dead.emit(self)
 	queue_free()

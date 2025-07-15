@@ -11,6 +11,10 @@ var direction: Vector2:
 		return direction.normalized()
 
 var mousePosition
+@export var ui: CanvasLayer
+
+@export var invulnSeconds: int = 2
+@onready var col := $CollisionShape2D
 
 func _ready() -> void:
 	add_to_group("player")
@@ -41,3 +45,19 @@ func _physics_process(_delta: float) -> void:
 	velocity = maxSpeed * direction.normalized()
 
 	move_and_slide()
+
+func _gain_xp(xp: int):
+	if ui.xp <= 100:
+		ui.xp += xp
+
+func _lose_hp(hp: int):
+	ui.hp += -hp
+	if ui.hp > 0:
+		col.disabled = true
+		await get_tree().create_timer(invulnSeconds).timeout
+		col.disabled = false
+	else:
+		die()
+
+func die():
+	queue_free()

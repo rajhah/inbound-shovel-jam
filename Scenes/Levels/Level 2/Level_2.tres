@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=4 format=3 uid="uid://ddp8kbtay2u3u"]
+
+[ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_c260m"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_goqln"]
+[ext_resource type="Resource" uid="uid://btc6n1xi5id" path="res://Scenes/Levels/Level 2/Wave_2-1-BOSS.tres" id="3_goqln"]
+
+[resource]
+script = ExtResource("1_c260m")
+waves = Array[ExtResource("2_goqln")]([ExtResource("3_goqln")])
+timeBeforeStartingNextLevel = 0
+metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

@@ -7,12 +7,14 @@ var currentLevel: int = 0
 var currentWave: int = 0
 var waveTimer: Timer
 
+var currentLevelEnemies: Array = []
+
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	if not player:
 		print("Warning: No player found in 'player' group")
 
-	Global.BossDefeated.connect(_on_boss_defeated)
+	Global.BossDefeated.connect(_on_level_complete)
 
 	waveTimer = Timer.new()
 	waveTimer.one_shot = true
@@ -21,8 +23,6 @@ func _ready() -> void:
 	if levels.size() > 0:
 		_start_wave()
 
-
-
 func _start_wave():
 	var currentLevelResource = levels[currentLevel]
 
@@ -30,38 +30,25 @@ func _start_wave():
 		print_debug("all levels complete")
 		return
 
-	if currentWave >= currentLevelResource.waves.size():
-		currentWave = 0
+	# Waves will loop here
+	#if currentWave > currentLevelResource.waves.size():
+	#	currentWave = 0
 
 	var currentWaveResource = currentLevelResource.waves[currentWave]
 
 	waveTimer.wait_time = currentWaveResource.delay
 	waveTimer.start()
 
-
-
-
-
 func _on_wave_timer_timeout():
 	var currentWaveResource = levels[currentLevel].waves[currentWave]
-	var trigger = currentWaveResource.endWaveTrigger
-
-	if trigger == "defeat":
-		for enemy in get_tree().get_nodes_in_group("enemies"):
-			enemy.queue_free()
 
 	_spawn_enemies(currentWaveResource.enemies, currentWaveResource.spawn_type)
-
-	if trigger == "timer":
+	if currentWave + 1 < levels[currentLevel].waves.size():
 		currentWave += 1
 		_start_wave()
 
-
-func _on_boss_defeated():
-	currentWave += 1
-	_start_wave()
-
 func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
+
 	for enemyScene in enemyDict:
 		var count = enemyDict[enemyScene]
 		if enemyScene != null:
@@ -69,6 +56,20 @@ func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
 				var enemy = enemyScene.instantiate()
 				enemy.position = _calculateSpawnPosition(spawnType)
 				add_child(enemy)
+				currentLevelEnemies.append(enemy)
+				enemy.connect("dead", _on_enemy_died)
+
+func _on_enemy_died(enemy):
+	currentLevelEnemies.erase(enemy)
+	if currentLevelEnemies.is_empty() and currentWave + 1 == levels[currentLevel].waves.size():
+		_on_level_complete()
+
+func _on_level_complete():
+	await get_tree().create_timer(levels[currentLevel].timeBeforeStartingNextLevel).timeout
+	if currentLevel + 1 < levels.size():
+		currentLevel += 1
+		currentWave = 0
+		_start_wave()
 
 func _calculateSpawnPosition(spawnType: String) -> Vector2:
 	var ppos = player.global_position
