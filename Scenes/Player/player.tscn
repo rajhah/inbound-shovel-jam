@@ -1,21 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfkkqc8sod66b"]
+[gd_scene load_steps=13 format=3 uid="uid://cfkkqc8sod66b"]
 
 [ext_resource type="Script" uid="uid://j6v2yycitfo3" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://dbbbe38wrtdn5" path="res://Assets/vacuumManShortShort.png" id="2_xpcdj"]
 [ext_resource type="Script" uid="uid://0u1o1lxctcfg" path="res://Scenes/Player/suck_area.gd" id="3_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://dkjqcdh6w8bx5" path="res://Assets/weapon_indicator2.png" id="4_0u5uq"]
+[ext_resource type="Texture2D" uid="uid://cpjqkkmmbje24" path="res://Assets/no.png" id="4_jlvik"]
 [ext_resource type="Texture2D" uid="uid://bjawoum7viyin" path="res://Assets/weapon_indicator3.png" id="5_jlvik"]
 [ext_resource type="Texture2D" uid="uid://crhg8s0io26d6" path="res://Assets/weapon_indicator4.png" id="6_gk6dx"]
 [ext_resource type="Texture2D" uid="uid://dubma0u5nnrjb" path="res://Assets/weapon_indicator5.png" id="7_jhyir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kln2b"]
 radius = 16.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh2o"]
-size = Vector2(23, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbw6q"]
-size = Vector2(16, 40)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gk6dx"]
 animations = [{
@@ -37,8 +32,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgh2o"]
+size = Vector2(23, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbw6q"]
+size = Vector2(16, 40)
+
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_a3d8c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -52,32 +53,37 @@ zoom = Vector2(1.2, 1.2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kln2b")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Main Weapon" type="Area2D" parent="."]
 position = Vector2(74, 0)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("3_xpcdj")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Main Weapon"]
 scale = Vector2(2, 2)
 polygon = PackedVector2Array(0, -13, 5, -40, 28, -34, 45, -10, 45, 13, 28, 37, 5, 43, 0, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Main Weapon/CollisionPolygon2D"]
+position = Vector2(-37, 0)
+sprite_frames = SubResource("SpriteFrames_gk6dx")
+offset = Vector2(59.5, 1.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main Weapon"]
 position = Vector2(-27.5, 5)
 shape = SubResource("RectangleShape2D_rgh2o")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main Weapon"]
 position = Vector2(-8, 5)
 shape = SubResource("RectangleShape2D_pbw6q")
+
+[node name="Sprite2D" type="Sprite2D" parent="Main Weapon"]
+texture_filter = 1
+position = Vector2(-8, 5)
+texture = ExtResource("4_jlvik")
 
 [node name="suck_timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_gk6dx")
-offset = Vector2(59.5, 1.5)
-
-[connection signal="timeout" from="suck_timer" to="Area2D" method="_on_suck_timer_timeout"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="Area2D" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="Main Weapon/CollisionPolygon2D/AnimatedSprite2D" to="Main Weapon" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="suck_timer" to="Main Weapon" method="_on_suck_timer_timeout"]

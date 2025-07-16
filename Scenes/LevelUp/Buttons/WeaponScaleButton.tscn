@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://12svtw1t8u7d"]
+
+[ext_resource type="Texture2D" uid="uid://denuawj8eq4vr" path="res://Assets/powerupCard.png" id="2_hgooy"]
+[ext_resource type="Script" uid="uid://c1o2frgkfibef" path="res://Scenes/LevelUp/Buttons/WeaponScaleButton.gd" id="2_nho2o"]
+
+[node name="WeaponScaleButton" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 264.0
+offset_bottom = 418.0
+action_mode = 0
+icon = ExtResource("2_hgooy")
+script = ExtResource("2_nho2o")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -3,11 +3,13 @@ extends CanvasLayer
 @onready var xpBar := $xpBar
 @onready var hpBar := $hpBar
 
+
 var xp: int = 0:
 	get:
 		return xp
 	set(value):
-		xp = value
+		xp = min(100, value)
+
 
 var hp: int = 100:
 	get:
@@ -16,6 +18,6 @@ var hp: int = 100:
 		hp = value
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	xpBar.value = xp
 	hpBar.value = hp

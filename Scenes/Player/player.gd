@@ -10,6 +10,14 @@ var direction: Vector2:
 	get:
 		return direction.normalized()
 
+var experience: int:
+	get:
+		if ui:
+			return ui.xp
+		else:
+			return 0
+
+
 var mousePosition
 @export var ui: CanvasLayer
 
@@ -18,6 +26,7 @@ var mousePosition
 
 func _ready() -> void:
 	add_to_group("player")
+	Global.trashCanDeleted.connect(_reset_xp)
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -49,6 +58,11 @@ func _physics_process(_delta: float) -> void:
 func _gain_xp(xp: int):
 	if ui.xp <= 100:
 		ui.xp += xp
+		if ui.xp >= 100:
+			Global.xpBarFull.emit()
+
+func _reset_xp():
+	ui.xp = 0
 
 func _lose_hp(hp: int):
 	ui.hp += -hp

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c55ha7mggp2pi"]
+
+[ext_resource type="Script" uid="uid://bhkytnr1d0cgm" path="res://Scenes/Player/trash_can_indicator.gd" id="1_06xi3"]
+[ext_resource type="Texture2D" uid="uid://t5chb6naa85v" path="res://Assets/trashCan.png" id="1_nbwcl"]
+
+[node name="TrashCanIndicator" type="Node2D"]
+rotation = 1.5708
+script = ExtResource("1_06xi3")
+
+[node name="Offset" type="Node2D" parent="."]
+position = Vector2(0, -70)
+
+[node name="Sprite2D" type="Sprite2D" parent="Offset"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("1_nbwcl")
+
+[node name="Polygon2D2" type="Polygon2D" parent="Offset"]
+position = Vector2(-0.232558, -4.72414)
+scale = Vector2(0.534884, 0.517241)
+color = Color(0.85301, 0.325528, 0.460617, 1)
+polygon = PackedVector2Array(-25.7391, -27.6, 0.434783, -46.9333, 26.6087, -27.6, 19.1304, -19.8667, 0.434783, -35.3333, -18.2609, -19.8667)
+
+[node name="Polygon2D" type="Polygon2D" parent="Offset"]
+position = Vector2(-0.232558, -4.72414)
+scale = Vector2(0.534884, 0.517241)
+color = Color(0.85301, 0.80531, 0.325528, 1)
+polygon = PackedVector2Array(-23.8696, -27.6, 0.434783, -45, 24.7391, -27.6, 19.1304, -21.8, 0.434783, -37.2667, -18.2609, -21.8)

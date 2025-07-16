@@ -2,6 +2,8 @@ extends Node2D
 
 @export var levels: Array[LevelResource]
 
+var trashCan = preload("res://Scenes/Trashcan/trash_can.tscn")
+
 var player: CharacterBody2D
 var currentLevel: int = 0
 var currentWave: int = 0
@@ -14,7 +16,7 @@ func _ready() -> void:
 	if not player:
 		print("Warning: No player found in 'player' group")
 
-	Global.BossDefeated.connect(_on_level_complete)
+	Global.xpBarFull.connect(_spawn_trash_can)
 
 	waveTimer = Timer.new()
 	waveTimer.one_shot = true
@@ -30,10 +32,6 @@ func _start_wave():
 		print_debug("all levels complete")
 		return
 
-	# Waves will loop here
-	#if currentWave > currentLevelResource.waves.size():
-	#	currentWave = 0
-
 	var currentWaveResource = currentLevelResource.waves[currentWave]
 
 	waveTimer.wait_time = currentWaveResource.delay
@@ -48,7 +46,6 @@ func _on_wave_timer_timeout():
 		_start_wave()
 
 func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
-
 	for enemyScene in enemyDict:
 		var count = enemyDict[enemyScene]
 		if enemyScene != null:
@@ -58,6 +55,14 @@ func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
 				add_child(enemy)
 				currentLevelEnemies.append(enemy)
 				enemy.connect("dead", _on_enemy_died)
+
+func _spawn_trash_can():
+	if get_tree().get_nodes_in_group("trashCan").is_empty():
+		var can = trashCan.instantiate()
+		can.position = _calculateSpawnPosition("circle")
+		add_child(can)
+		can.add_to_group("trashCan")
+		Global.trashCanCreated.emit(can)
 
 func _on_enemy_died(enemy):
 	currentLevelEnemies.erase(enemy)
