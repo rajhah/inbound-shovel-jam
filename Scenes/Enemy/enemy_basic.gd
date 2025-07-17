@@ -1,10 +1,10 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var xpOnDeath: int = 100
-@export var contactDamage: int = 10
+@export var xpOnDeath: int = 10
+@export var contactDamage: int = 20
 
-@export var speed: float = 25.0
+@export var speed: float = 85.0
 @export var acceleration: float = 500.0
 @export var friction: float = 300.0
 
@@ -13,7 +13,7 @@ class_name Enemy
 @export var follow_distance: float = 20.0
 @export var follow_deadzone: float = 5.0
 
-@export var health: float = 0.0
+@export var health: float = 1.0
 
 @export var downTime: int = 10
 
@@ -31,8 +31,6 @@ func _ready():
 	downTimer.stop()
 
 	player = get_tree().get_first_node_in_group("player")
-	if not player:
-		print("Warning: No player found in 'player' group")
 	add_to_group("enemies")
 
 func _physics_process(delta):

@@ -59,7 +59,7 @@ func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
 func _spawn_trash_can():
 	if get_tree().get_nodes_in_group("trashCan").is_empty():
 		var can = trashCan.instantiate()
-		can.position = _calculateSpawnPosition("circle")
+		can.position = _calculateSpawnPosition("trashCan")
 		add_child(can)
 		can.add_to_group("trashCan")
 		Global.trashCanCreated.emit(can)
@@ -77,13 +77,25 @@ func _on_level_complete():
 		_start_wave()
 
 func _calculateSpawnPosition(spawnType: String) -> Vector2:
+	if not player:
+		return Vector2.ZERO
+
+	var distance = 600
+	if spawnType == "trashCan":
+		distance = 900
 	var ppos = player.global_position
 	var pdir = player.direction
 	if pdir != Vector2.ZERO and spawnType == "normal":
 			var perpendicular = Vector2(-pdir.y, pdir.x)
-			var forwardOffset = pdir * 400
-			var sideOffset = perpendicular * randf_range(-100, 100)
+			var forwardOffset = pdir * distance
+			var sideOffset = perpendicular * randf_range(-300, 300)
 			return ppos + forwardOffset + sideOffset
 	else:
 		var random_angle = randf() * 2 * PI
-		return ppos + Vector2(cos(random_angle), sin(random_angle)) * 400
+		return ppos + Vector2(cos(random_angle), sin(random_angle)) * distance
+
+func _process(_delta: float) -> void:
+	if player and !currentLevelEnemies.is_empty():
+		for enemy in currentLevelEnemies:
+			if enemy.global_position.distance_to(player.global_position) > 700:
+				enemy.global_position = _calculateSpawnPosition("normal")

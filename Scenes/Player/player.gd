@@ -5,7 +5,9 @@ var leftHold: bool
 var upHold: bool
 var downHold: bool
 
-var maxSpeed = 100
+var maxSpeed = 175
+var playerSpeedMultiplier := 1.0
+
 var direction: Vector2:
 	get:
 		return direction.normalized()
@@ -20,8 +22,8 @@ var experience: int:
 
 var mousePosition
 @export var ui: CanvasLayer
+@export var overlay: TextureRect
 
-@export var invulnSeconds: int = 2
 @onready var col := $CollisionShape2D
 
 func _ready() -> void:
@@ -51,15 +53,17 @@ func _physics_process(_delta: float) -> void:
 	else:
 		direction.y = 0
 
-	velocity = maxSpeed * direction.normalized()
+	velocity = maxSpeed * Global.playerSpeedMultiplier * direction.normalized()
 
 	move_and_slide()
 
 func _gain_xp(xp: int):
-	if ui.xp <= 100:
-		ui.xp += xp
+	if ui.xp < 100:
+		ui.xp += xp * Global.playerXpScaleFactor
 		if ui.xp >= 100:
 			Global.xpBarFull.emit()
+			if Global.playerXpScaleFactor > Global.playerXpScaleFactorMin:
+				Global.playerXpScaleFactor += Global.playerXpScaleFactorIncrease
 
 func _reset_xp():
 	ui.xp = 0
@@ -68,10 +72,13 @@ func _lose_hp(hp: int):
 	ui.hp += -hp
 	if ui.hp > 0:
 		col.disabled = true
-		await get_tree().create_timer(invulnSeconds).timeout
+		await get_tree().create_timer(Global.playerInvulnTime).timeout
 		col.disabled = false
 	else:
 		die()
 
 func die():
+	Global.playerDied.emit()
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.queue_free()
 	queue_free()

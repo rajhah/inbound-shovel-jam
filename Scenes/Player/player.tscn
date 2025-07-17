@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfkkqc8sod66b"]
+[gd_scene load_steps=15 format=3 uid="uid://cfkkqc8sod66b"]
 
 [ext_resource type="Script" uid="uid://j6v2yycitfo3" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://dbbbe38wrtdn5" path="res://Assets/vacuumManShortShort.png" id="2_xpcdj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjawoum7viyin" path="res://Assets/weapon_indicator3.png" id="5_jlvik"]
 [ext_resource type="Texture2D" uid="uid://crhg8s0io26d6" path="res://Assets/weapon_indicator4.png" id="6_gk6dx"]
 [ext_resource type="Texture2D" uid="uid://dubma0u5nnrjb" path="res://Assets/weapon_indicator5.png" id="7_jhyir"]
+[ext_resource type="Script" uid="uid://clt6ocllef04d" path="res://Scenes/Player/suck_timer.gd" id="9_gk6dx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kln2b"]
 radius = 16.0
@@ -37,6 +38,9 @@ size = Vector2(23, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pbw6q"]
 size = Vector2(16, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gk6dx"]
+radius = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 10
@@ -84,6 +88,14 @@ texture = ExtResource("4_jlvik")
 [node name="suck_timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+script = ExtResource("9_gk6dx")
+
+[node name="TrashCanDetector" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrashCanDetector"]
+shape = SubResource("CircleShape2D_gk6dx")
 
 [connection signal="animation_finished" from="Main Weapon/CollisionPolygon2D/AnimatedSprite2D" to="Main Weapon" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="suck_timer" to="Main Weapon" method="_on_suck_timer_timeout"]

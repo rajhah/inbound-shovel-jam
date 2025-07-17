@@ -1,4 +1,6 @@
 extends LevelUpCard
 
 func _take_action():
-	Global.mainWeaponSize += .6
+	Global.mainWeaponSize += Global.mainWeaponSizeIncrease
+	if Global.mainWeaponSize >= Global.mainWeaponSizeMax:
+		Global.disableButton.emit(Global.ButtonType.WEAPONSCALE)

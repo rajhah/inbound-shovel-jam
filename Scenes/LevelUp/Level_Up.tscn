@@ -1,8 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0qo4bf3mno71"]
+[gd_scene load_steps=2 format=3 uid="uid://d0qo4bf3mno71"]
 
 [ext_resource type="Script" uid="uid://dutunb6tqglmd" path="res://Scenes/LevelUp/level_up.gd" id="1_mb5uj"]
-[ext_resource type="PackedScene" uid="uid://12svtw1t8u7d" path="res://Scenes/LevelUp/Buttons/WeaponScaleButton.tscn" id="2_mb5uj"]
 
 [node name="LevelUp" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_mb5uj")
-buttons = Array[PackedScene]([ExtResource("2_mb5uj")])

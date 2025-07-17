@@ -8,7 +8,6 @@ script = ExtResource("1_nb6in")
 delay = 8.0
 spawn_type = "normal"
 enemies = Dictionary[PackedScene, int]({
-ExtResource("1_dma41"): 18
+ExtResource("1_dma41"): 22
 })
-endWaveTrigger = "timer"
 metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

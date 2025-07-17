@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cytd7io612ysc" path="res://Assets/paperMedium.png" id="2_magm2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ntch3"]
-radius = 17.0
+radius = 9.05539
 
 [node name="Enemy_Basic" type="CharacterBody2D"]
 collision_layer = 2

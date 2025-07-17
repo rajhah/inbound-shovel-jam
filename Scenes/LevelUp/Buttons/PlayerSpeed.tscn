@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx73a20yjymtn"]
+
+[ext_resource type="Texture2D" uid="uid://denuawj8eq4vr" path="res://Assets/powerupCard.png" id="1_012ol"]
+[ext_resource type="Script" uid="uid://ppxsbd28hp46" path="res://Scenes/LevelUp/Buttons/PlayerSpeed.gd" id="1_jnfml"]
+[ext_resource type="Texture2D" uid="uid://c3at8towp4qy3" path="res://Assets/PlayerSpeed.png" id="3_0k6c0"]
+
+[node name="PlayerSpeed" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("1_012ol")
+script = ExtResource("1_jnfml")
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+texture_filter = 1
+position = Vector2(136, 203)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_0k6c0")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

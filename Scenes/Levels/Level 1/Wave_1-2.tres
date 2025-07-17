@@ -10,5 +10,4 @@ spawn_type = "circle"
 enemies = Dictionary[PackedScene, int]({
 ExtResource("1_ufj5b"): 12
 })
-endWaveTrigger = "timer"
 metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

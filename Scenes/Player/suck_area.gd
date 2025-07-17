@@ -8,21 +8,24 @@ var fullXp := false
 func _ready() -> void:
 	mainWeapon = $CollisionPolygon2D
 	spr = $CollisionPolygon2D/AnimatedSprite2D
-	spr.play("default")
+	_on_suck_timer_timeout()
 
 	noSpr = $Sprite2D
 	noSpr.visible = false
 
 	Global.xpBarFull.connect(_on_xp_bar_full)
 	Global.trashCanDeleted.connect(_on_trash_can_deleted)
+	Global.attributeUpdated.connect(_check_attributes)
 
-func _process(_delta: float) -> void:
+func _check_attributes():
 	if mainWeapon.scale.x != Global.mainWeaponSize:
 		mainWeapon.scale = Vector2(Global.mainWeaponSize, Global.mainWeaponSize)
 
 func _on_suck_timer_timeout() -> void:
 	if !fullXp:
 		spr.visible = true
+		var target_fps = 5.0 / Global.mainWeaponCooldown
+		spr.speed_scale = target_fps / 5.0
 		spr.play("default")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -42,3 +45,6 @@ func _on_xp_bar_full():
 func _on_trash_can_deleted():
 	fullXp = false
 	noSpr.visible = false
+	var target_fps = 5.0 / Global.mainWeaponCooldown
+	spr.speed_scale = target_fps / 5.0
+	spr.play("default")

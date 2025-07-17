@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce6pya2c8b7m"]
+[gd_scene load_steps=8 format=3 uid="uid://ce6pya2c8b7m"]
 
 [ext_resource type="Texture2D" uid="uid://4t7ob8wdg4ci" path="res://Assets/carpet01.png" id="1_r150o"]
 [ext_resource type="PackedScene" uid="uid://cfkkqc8sod66b" path="res://Scenes/Player/player.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://bjkrie5fmevg5" path="res://Scenes/UI/ingame_ui.tscn" id="4_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://bv2vqhp56f434" path="res://Scenes/EnemySpawner/enemy_spawner.tscn" id="4_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://c55ha7mggp2pi" path="res://Scenes/Player/trash_can_indicator.tscn" id="5_pbw6q"]
+[ext_resource type="Script" uid="uid://bcp81lgs7wd4l" path="res://Scenes/UI/overlay_control.gd" id="6_50glp"]
 [ext_resource type="PackedScene" uid="uid://d0qo4bf3mno71" path="res://Scenes/LevelUp/Level_Up.tscn" id="6_v1gob"]
 
 [node name="Main" type="Node2D"]
@@ -26,8 +27,11 @@ ui = NodePath("../Bars")
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("4_rgh2o")]
 
+[node name="TrashCanIndicator" parent="." instance=ExtResource("5_pbw6q")]
+
 [node name="Bars" parent="." instance=ExtResource("4_pbw6q")]
 
-[node name="TrashCanIndicator" parent="." instance=ExtResource("5_pbw6q")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("6_50glp")
 
 [node name="LevelUp" parent="." instance=ExtResource("6_v1gob")]

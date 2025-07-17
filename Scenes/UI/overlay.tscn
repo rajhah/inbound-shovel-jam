@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bogw5x2xuttd1"]
+
+[ext_resource type="Texture2D" uid="uid://bbcpq5jnrcr6l" path="res://Assets/overlay.png" id="1_454hp"]
+[ext_resource type="Script" uid="uid://37qg8wa8pb5t" path="res://Scenes/overlay.gd" id="2_77y0b"]
+[ext_resource type="Texture2D" uid="uid://dtt03n7uvm0gy" path="res://Assets/overlayText.png" id="3_0u4lp"]
+[ext_resource type="Texture2D" uid="uid://cv0a3wjijmvj3" path="res://Assets/cleanAgain.png" id="4_77y0b"]
+
+[node name="Overlay" type="TextureRect"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+texture = ExtResource("1_454hp")
+script = ExtResource("2_77y0b")
+
+[node name="TextOverlay" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_0u4lp")
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 698.0
+offset_top = 523.0
+offset_right = 1056.0
+offset_bottom = 617.0
+disabled = true
+icon = ExtResource("4_77y0b")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

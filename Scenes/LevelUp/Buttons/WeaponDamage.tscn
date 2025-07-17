@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0ylpryc2t6ok"]
+
+[ext_resource type="Script" uid="uid://cpispo3alydni" path="res://Scenes/LevelUp/Buttons/WeaponDamage.gd" id="1_gpv21"]
+[ext_resource type="Texture2D" uid="uid://denuawj8eq4vr" path="res://Assets/powerupCard.png" id="1_lhxn8"]
+[ext_resource type="Texture2D" uid="uid://bt3cl7knqr1h2" path="res://Assets/Damage.png" id="3_i37km"]
+
+[node name="WeaponDamage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("1_lhxn8")
+script = ExtResource("1_gpv21")
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+texture_filter = 1
+position = Vector2(135, 203)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_i37km")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
