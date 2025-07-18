@@ -25,4 +25,26 @@ position = Vector2(134, 215)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_i2cs7")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 38.0
+offset_top = 18.0
+offset_right = 223.0
+offset_bottom = 428.0
+mouse_filter = 2
+text = "additional targets
+
+
+
+
+
+
+
+
+
+you can suck up way more trash now!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

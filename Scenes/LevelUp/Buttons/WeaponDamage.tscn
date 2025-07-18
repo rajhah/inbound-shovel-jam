@@ -25,4 +25,25 @@ position = Vector2(135, 203)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_i37km")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 36.0
+offset_top = 61.0
+offset_right = 226.0
+offset_bottom = 398.0
+mouse_filter = 2
+text = "cleaning power
+
+
+
+
+
+
+
+
+look I know this looks like a sword but trust me all it does is make your vacuum better"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

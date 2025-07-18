@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -24,5 +25,27 @@ texture_filter = 1
 position = Vector2(136, 203)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_0k6c0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 51.0
+offset_top = 57.0
+offset_right = 211.0
+offset_bottom = 381.0
+mouse_filter = 2
+text = "speed
+
+
+
+
+
+
+
+
+
+I mean what do you want me to say, you just move faster I guess"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

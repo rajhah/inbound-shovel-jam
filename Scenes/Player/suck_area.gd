@@ -4,10 +4,12 @@ var mainWeapon: CollisionPolygon2D
 var spr: AnimatedSprite2D
 var noSpr: Sprite2D
 var fullXp := false
+var suckTimer: Timer
 
 func _ready() -> void:
 	mainWeapon = $CollisionPolygon2D
 	spr = $CollisionPolygon2D/AnimatedSprite2D
+	suckTimer = $"../suck_timer"
 	_on_suck_timer_timeout()
 
 	noSpr = $Sprite2D
@@ -41,10 +43,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func _on_xp_bar_full():
 	fullXp = true
 	noSpr.visible = true
+	suckTimer.stop()
 
 func _on_trash_can_deleted():
 	fullXp = false
 	noSpr.visible = false
 	var target_fps = 5.0 / Global.mainWeaponCooldown
-	spr.speed_scale = target_fps / 5.0
-	spr.play("default")
+	_on_suck_timer_timeout()
+	suckTimer.start()

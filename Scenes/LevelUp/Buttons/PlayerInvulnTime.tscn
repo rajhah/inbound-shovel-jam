@@ -25,4 +25,30 @@ position = Vector2(132, 208)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_6ph3j")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 51.0
+offset_top = 258.0
+offset_right = 219.0
+offset_bottom = 373.0
+mouse_filter = 2
+text = "After you were once hit, shall you be hit once again? Time rushes through the glass."
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Button"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 51.0
+offset_top = 94.0
+offset_right = 212.0
+offset_bottom = 149.0
+mouse_filter = 2
+text = "invincibility frames"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

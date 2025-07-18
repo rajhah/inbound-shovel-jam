@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce6pya2c8b7m"]
+[gd_scene load_steps=11 format=3 uid="uid://ce6pya2c8b7m"]
 
 [ext_resource type="Texture2D" uid="uid://4t7ob8wdg4ci" path="res://Assets/carpet01.png" id="1_r150o"]
+[ext_resource type="Script" uid="uid://d10ov8vahhu2y" path="res://Scenes/main.gd" id="1_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://cfkkqc8sod66b" path="res://Scenes/Player/player.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://bjkrie5fmevg5" path="res://Scenes/UI/ingame_ui.tscn" id="4_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://bv2vqhp56f434" path="res://Scenes/EnemySpawner/enemy_spawner.tscn" id="4_rgh2o"]
+[ext_resource type="AudioStream" uid="uid://p6d282cqq2w8" path="res://Assets/Sound/death.wav" id="5_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://c55ha7mggp2pi" path="res://Scenes/Player/trash_can_indicator.tscn" id="5_pbw6q"]
 [ext_resource type="Script" uid="uid://bcp81lgs7wd4l" path="res://Scenes/UI/overlay_control.gd" id="6_50glp"]
 [ext_resource type="PackedScene" uid="uid://d0qo4bf3mno71" path="res://Scenes/LevelUp/Level_Up.tscn" id="6_v1gob"]
+[ext_resource type="AudioStream" uid="uid://d313xvognt6xs" path="res://Assets/Sound/Loop.wav" id="9_bmxlf"]
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_vy5pj")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -25,6 +29,10 @@ stretch_mode = 1
 [node name="player" parent="." node_paths=PackedStringArray("ui") instance=ExtResource("2_kln2b")]
 ui = NodePath("../Bars")
 
+[node name="MainMusicPlayer" type="AudioStreamPlayer2D" parent="player"]
+process_mode = 3
+stream = ExtResource("9_bmxlf")
+
 [node name="Enemy Spawner" parent="." instance=ExtResource("4_rgh2o")]
 
 [node name="TrashCanIndicator" parent="." instance=ExtResource("5_pbw6q")]
@@ -33,5 +41,9 @@ ui = NodePath("../Bars")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("6_50glp")
+
+[node name="DeathMusicPlayer" type="AudioStreamPlayer2D" parent="CanvasLayer"]
+process_mode = 3
+stream = ExtResource("5_bmxlf")
 
 [node name="LevelUp" parent="." instance=ExtResource("6_v1gob")]

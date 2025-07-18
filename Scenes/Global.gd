@@ -39,6 +39,9 @@ signal disableButton
 
 signal playerDied
 
+signal musicOn
+signal musicOff
+
 enum ButtonType {
 	PLAYERINVULNTIME,
 	PLAYERSPEED,
@@ -54,5 +57,10 @@ var musicEnabled := true
 func toggle_sound():
 	soundEnabled = !soundEnabled
 
+
 func toggle_music():
 	musicEnabled = !musicEnabled
+	if musicEnabled:
+		musicOn.emit()
+	else:
+		musicOff.emit()
