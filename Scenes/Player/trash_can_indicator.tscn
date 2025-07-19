@@ -8,7 +8,7 @@ rotation = 1.5708
 script = ExtResource("1_06xi3")
 
 [node name="Offset" type="Node2D" parent="."]
-position = Vector2(0, -110)
+position = Vector2(0, -130)
 
 [node name="Sprite2D" type="Sprite2D" parent="Offset"]
 scale = Vector2(0.17, 0.17)

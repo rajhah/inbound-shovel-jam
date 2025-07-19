@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy8jm8o285mtr"]
+
+[ext_resource type="Script" uid="uid://3txvufv357me" path="res://Scenes/Levels/Picker/level_picker_container.gd" id="1_wc44j"]
+[ext_resource type="Script" uid="uid://banijt6hr35ib" path="res://Scenes/Levels/Picker/levelPickerButton.gd" id="2_c25h4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_c25h4"]
+
+[node name="LevelPickerContainer" type="CanvasLayer"]
+script = ExtResource("1_wc44j")
+
+[node name="LevelPicker" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 658.0
+offset_bottom = 658.0
+
+[node name="TextureRect" type="TextureRect" parent="LevelPicker"]
+modulate = Color(0, 0, 0, 0.258824)
+layout_mode = 0
+offset_left = 128.0
+offset_top = 72.0
+offset_right = 1059.0
+offset_bottom = 582.0
+texture = SubResource("CanvasTexture_c25h4")
+
+[node name="Level 1" type="Button" parent="LevelPicker"]
+offset_left = 347.0
+offset_top = 94.0
+offset_right = 414.0
+offset_bottom = 125.0
+text = "Level 1"
+script = ExtResource("2_c25h4")
+level = 1
+
+[node name="Level 2" type="Button" parent="LevelPicker"]
+offset_left = 445.0
+offset_top = 96.0
+offset_right = 512.0
+offset_bottom = 127.0
+text = "Level 2"
+script = ExtResource("2_c25h4")
+level = 2
+
+[connection signal="pressed" from="LevelPicker/Level 1" to="LevelPicker/Level 1" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 2" to="LevelPicker/Level 2" method="_on_pressed"]

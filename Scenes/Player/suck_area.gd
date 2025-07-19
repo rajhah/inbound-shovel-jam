@@ -5,11 +5,14 @@ var spr: AnimatedSprite2D
 var noSpr: Sprite2D
 var fullXp := false
 var suckTimer: Timer
+var sfxPlayer: AudioStreamPlayer2D
 
 func _ready() -> void:
 	mainWeapon = $CollisionPolygon2D
 	spr = $CollisionPolygon2D/AnimatedSprite2D
 	suckTimer = $"../suck_timer"
+	sfxPlayer = $VacuumSound
+
 	_on_suck_timer_timeout()
 
 	noSpr = $Sprite2D
@@ -17,9 +20,10 @@ func _ready() -> void:
 
 	Global.xpBarFull.connect(_on_xp_bar_full)
 	Global.trashCanDeleted.connect(_on_trash_can_deleted)
-	Global.attributeUpdated.connect(_check_attributes)
+	Global.weaponScaleUpdated.connect(_weapon_scale_updated)
 
-func _check_attributes():
+
+func _weapon_scale_updated():
 	if mainWeapon.scale.x != Global.mainWeaponSize:
 		mainWeapon.scale = Vector2(Global.mainWeaponSize, Global.mainWeaponSize)
 
@@ -33,6 +37,10 @@ func _on_suck_timer_timeout() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	spr.visible = false
 	if !fullXp:
+		if !sfxPlayer.playing and Global.soundEnabled:
+			var rand = randf_range(0.9, 1.1)
+			sfxPlayer.pitch_scale = rand
+			sfxPlayer.play()
 		var hitCount = 0
 		var enemies = get_overlapping_bodies()
 		for enemy in enemies:
@@ -48,6 +56,5 @@ func _on_xp_bar_full():
 func _on_trash_can_deleted():
 	fullXp = false
 	noSpr.visible = false
-	var target_fps = 5.0 / Global.mainWeaponCooldown
 	_on_suck_timer_timeout()
 	suckTimer.start()

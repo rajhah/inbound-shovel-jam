@@ -1,6 +1,6 @@
 extends LevelUpCard
 
 func _take_action():
-	Global.mainWeaponDamage += Global.mainWeaponDamageIncrease
-	if Global.mainWeaponDamage >= Global.mainWeaponDamageMax:
+	Global.mainWeaponDamageIndex += 1
+	if Global.mainWeaponDamageIndex + 1 == Global.mainWeaponDamageLevels.size():
 		Global.disableButton.emit(Global.ButtonType.WEAPONDAMAGE)

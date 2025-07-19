@@ -17,6 +17,10 @@ func _ready() -> void:
 
 func _level_up():
 	var available = _get_available_buttons()
+	if available.is_empty():
+		Global.maxLevelReached.emit()
+		return
+
 	available.shuffle()
 	var buttonsToSpawn = available.slice(0, min(3, available.size()))
 

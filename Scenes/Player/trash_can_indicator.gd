@@ -21,10 +21,17 @@ func _process(_delta: float) -> void:
 	rotation = direction.angle() + deg_to_rad(90)
 	spr.rotation = -direction.angle() - deg_to_rad(90)
 
+	if target != Vector2.ZERO:
+		var distance = player.global_position.distance_to(target)
+		if distance < 180:
+			offset.position.y = max(-130, -distance + 50)
+
+
 func _on_trash_can_created(trashCan: Area2D):
 	offset.visible = true
 	target = trashCan.global_position
 
 func _on_trash_can_deleted():
 	offset.visible = false
+	offset.position.y = -130.0
 	target = Vector2.ZERO

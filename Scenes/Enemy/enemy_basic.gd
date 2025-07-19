@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Enemy
 
+
+@export var enemy_type: Global.enemyType
 @export var xpOnDeath: int = 10
 @export var contactDamage: int = 20
 
@@ -113,6 +115,7 @@ func _on_down_timer_timeout() -> void:
 	downState = false
 
 func get_collected(vacPos: Vector2):
+	col.disabled = true
 	player._gain_xp(xpOnDeath)
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", vacPos, 0.25)
@@ -121,5 +124,6 @@ func get_collected(vacPos: Vector2):
 	tween.tween_callback(die)
 
 func die():
+	player.play_enemy_sfx(enemy_type)
 	dead.emit(self)
 	queue_free()

@@ -8,6 +8,12 @@ var downHold: bool
 var maxSpeed = 175
 var playerSpeedMultiplier := 1.0
 
+var paperSound = preload("res://Assets/Sound/paper.mp3")
+var bottleSound = preload("res://Assets/Sound/bottle.mp3")
+var clothesSound = preload("res://Assets/Sound/clothes.mp3")
+var levelUpSound = preload("res://Assets/Sound/levelup.mp3")
+var hurtSound = preload("res://Assets/Sound/weird-grunt-85631.mp3")
+
 var direction: Vector2:
 	get:
 		return direction.normalized()
@@ -25,10 +31,17 @@ var mousePosition
 @export var overlay: TextureRect
 
 @onready var col := $CollisionShape2D
+@onready var sfxPlayer := $Sfx
+
+var maxLevel := false
+var camera: Camera2D
 
 func _ready() -> void:
+	camera = $Camera2D
 	add_to_group("player")
+	Global.trashCanCreated.connect(_play_levelup_sfx)
 	Global.trashCanDeleted.connect(_reset_xp)
+	Global.maxLevelReached.connect(_max_level_reached)
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -38,6 +51,12 @@ func _physics_process(_delta: float) -> void:
 	leftHold = Input.is_action_pressed("left")
 	upHold = Input.is_action_pressed("up")
 	downHold = Input.is_action_pressed("down")
+
+	#Debug commands
+	if Input.is_action_pressed("LevelUp"):
+		Global.trashCanDeleted.emit()
+	if Input.is_action_pressed("Sudoku"):
+		_lose_hp(100)
 
 	if rightHold:
 		direction.x = 1
@@ -60,18 +79,54 @@ func _physics_process(_delta: float) -> void:
 func _gain_xp(xp: int):
 	if ui.xp < 100:
 		ui.xp += xp * Global.playerXpScaleFactor
-		if ui.xp >= 100:
+		if ui.xp >= 100 and !maxLevel:
 			Global.xpBarFull.emit()
 			if Global.playerXpScaleFactor > Global.playerXpScaleFactorMin:
 				Global.playerXpScaleFactor += Global.playerXpScaleFactorIncrease
+
+func play_enemy_sfx(enemy_type: Global.enemyType):
+	if !sfxPlayer.playing and Global.soundEnabled:
+		var rand = randf_range(0.9, 1.1)
+		match enemy_type:
+			Global.enemyType.PAPER:
+				sfxPlayer.stream = paperSound
+				sfxPlayer.pitch_scale = rand
+				sfxPlayer.play()
+			Global.enemyType.BOTTLE:
+				sfxPlayer.stream = bottleSound
+				sfxPlayer.pitch_scale = rand
+				sfxPlayer.play()
+			Global.enemyType.CLOTHES:
+				sfxPlayer.stream = clothesSound
+				sfxPlayer.pitch_scale = rand
+				sfxPlayer.play()
+
+func _play_levelup_sfx(_trashCanInstance):
+	if Global.soundEnabled:
+		sfxPlayer.stop()
+		sfxPlayer.stream = levelUpSound
+		sfxPlayer.play()
+
+func _play_hurt_sfx():
+	if Global.soundEnabled:
+		sfxPlayer.stop()
+		var rand = randf_range(0.8, 1.2)
+		sfxPlayer.stream = hurtSound
+		sfxPlayer.pitch_scale = rand
+		sfxPlayer.play()
+
+func _max_level_reached():
+	maxLevel = true
 
 func _reset_xp():
 	ui.xp = 0
 
 func _lose_hp(hp: int):
 	ui.hp += -hp
+	_play_hurt_sfx()
 	if ui.hp > 0:
 		col.disabled = true
+		camera.shake()
 		await get_tree().create_timer(Global.playerInvulnTime).timeout
 		col.disabled = false
 	else:

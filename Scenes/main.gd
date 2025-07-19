@@ -29,7 +29,8 @@ func _music_off():
 
 func _player_died():
 	_music_off()
-	deathPlayer.play()
+	if Global.musicEnabled:
+		deathPlayer.play()
 
 func _trash_can_deleted():
 	AudioServer.set_bus_effect_enabled(0, 0, true)

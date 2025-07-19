@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dcxyqwyn5ixwe" path="res://Assets/music_on.png" id="2_bf2px"]
 [ext_resource type="Texture2D" uid="uid://bl7dqbi5j8lwt" path="res://Assets/sound_on.png" id="3_0vjdq"]
 
-[node name="Bars" type="CanvasLayer"]
+[node name="Bars and Sound buttons" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_qath5")
 
 [node name="hpBar" type="ProgressBar" parent="."]

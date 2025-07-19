@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cfkkqc8sod66b"]
+[gd_scene load_steps=17 format=3 uid="uid://cfkkqc8sod66b"]
 
 [ext_resource type="Script" uid="uid://j6v2yycitfo3" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://dbbbe38wrtdn5" path="res://Assets/vacuumManShortShort.png" id="2_xpcdj"]
+[ext_resource type="Script" uid="uid://d1aohef1kfvsw" path="res://Scenes/Player/camera_2d.gd" id="3_jhyir"]
 [ext_resource type="Script" uid="uid://0u1o1lxctcfg" path="res://Scenes/Player/suck_area.gd" id="3_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://dkjqcdh6w8bx5" path="res://Assets/weapon_indicator2.png" id="4_0u5uq"]
 [ext_resource type="Texture2D" uid="uid://cpjqkkmmbje24" path="res://Assets/no.png" id="4_jlvik"]
@@ -9,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://crhg8s0io26d6" path="res://Assets/weapon_indicator4.png" id="6_gk6dx"]
 [ext_resource type="Texture2D" uid="uid://dubma0u5nnrjb" path="res://Assets/weapon_indicator5.png" id="7_jhyir"]
 [ext_resource type="Script" uid="uid://clt6ocllef04d" path="res://Scenes/Player/suck_timer.gd" id="9_gk6dx"]
+[ext_resource type="AudioStream" uid="uid://ws6uxoyvjfr0" path="res://Assets/Sound/vacuum_reverse_short.mp3" id="10_74mp2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kln2b"]
 radius = 16.0
@@ -52,7 +54,9 @@ rotation = -1.5708
 texture = ExtResource("2_xpcdj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+ignore_rotation = false
 zoom = Vector2(1.2, 1.2)
+script = ExtResource("3_jhyir")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kln2b")
@@ -85,6 +89,9 @@ texture_filter = 1
 position = Vector2(-8, 5)
 texture = ExtResource("4_jlvik")
 
+[node name="VacuumSound" type="AudioStreamPlayer2D" parent="Main Weapon"]
+stream = ExtResource("10_74mp2")
+
 [node name="suck_timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
@@ -96,6 +103,9 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrashCanDetector"]
 shape = SubResource("CircleShape2D_gk6dx")
+
+[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
 
 [connection signal="animation_finished" from="Main Weapon/CollisionPolygon2D/AnimatedSprite2D" to="Main Weapon" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="suck_timer" to="Main Weapon" method="_on_suck_timer_timeout"]

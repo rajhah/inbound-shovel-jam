@@ -3,6 +3,7 @@ extends Node2D
 @export var levels: Array[LevelResource]
 
 var trashCan = preload("res://Scenes/Trashcan/trash_can.tscn")
+var trashCanInstance
 
 var player: CharacterBody2D
 var currentLevel: int = 0
@@ -17,6 +18,7 @@ func _ready() -> void:
 		print("Warning: No player found in 'player' group")
 
 	Global.xpBarFull.connect(_spawn_trash_can)
+	Global.setCurrentLevel.connect(_set_current_level)
 
 	waveTimer = Timer.new()
 	waveTimer.one_shot = true
@@ -24,6 +26,17 @@ func _ready() -> void:
 	add_child(waveTimer)
 	if levels.size() > 0:
 		_start_wave()
+
+func _set_current_level(level: int):
+	_clear_all_enemies()
+	currentLevel = level
+	currentWave = 0
+	_start_wave()
+
+func _clear_all_enemies():
+	for i in currentLevelEnemies:
+		i.queue_free()
+	currentLevelEnemies.clear()
 
 func _start_wave():
 	var currentLevelResource = levels[currentLevel]
@@ -58,11 +71,11 @@ func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
 
 func _spawn_trash_can():
 	if get_tree().get_nodes_in_group("trashCan").is_empty():
-		var can = trashCan.instantiate()
-		can.position = _calculateSpawnPosition("trashCan")
-		add_child(can)
-		can.add_to_group("trashCan")
-		Global.trashCanCreated.emit(can)
+		trashCanInstance = trashCan.instantiate()
+		trashCanInstance.position = _calculateSpawnPosition("trashCan")
+		add_child(trashCanInstance)
+		trashCanInstance.add_to_group("trashCan")
+		Global.trashCanCreated.emit(trashCanInstance)
 
 func _on_enemy_died(enemy):
 	currentLevelEnemies.erase(enemy)
@@ -99,3 +112,8 @@ func _process(_delta: float) -> void:
 		for enemy in currentLevelEnemies:
 			if enemy.global_position.distance_to(player.global_position) > 700:
 				enemy.global_position = _calculateSpawnPosition("normal")
+
+	if player and trashCanInstance:
+		if trashCanInstance.global_position.distance_to(player.global_position) > 1800:
+			trashCanInstance.global_position = _calculateSpawnPosition("normal")
+			Global.trashCanCreated.emit(trashCanInstance)
