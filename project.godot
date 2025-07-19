@@ -76,6 +76,7 @@ Sudoku={
 2d_physics/layer_3="Weapon Range"
 2d_physics/layer_4="Trash Can"
 2d_physics/layer_5="Technically Also Player"
+2d_physics/layer_6="Bullets"
 
 [rendering]
 

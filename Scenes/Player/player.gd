@@ -42,6 +42,7 @@ func _ready() -> void:
 	Global.trashCanCreated.connect(_play_levelup_sfx)
 	Global.trashCanDeleted.connect(_reset_xp)
 	Global.maxLevelReached.connect(_max_level_reached)
+	Global.loseHp.connect(_lose_hp)
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -125,7 +126,7 @@ func _lose_hp(hp: int):
 	ui.hp += -hp
 	_play_hurt_sfx()
 	if ui.hp > 0:
-		col.disabled = true
+		col.set_deferred("disabled", true)
 		camera.shake()
 		await get_tree().create_timer(Global.playerInvulnTime).timeout
 		col.disabled = false

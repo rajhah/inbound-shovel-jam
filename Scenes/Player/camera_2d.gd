@@ -20,7 +20,7 @@ func _end_shake():
 	global_rotation = 0.0
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if shaking:
 		var _r1 = randf_range(-10, 10)
 		var _r2 = randf_range(-10, 10)

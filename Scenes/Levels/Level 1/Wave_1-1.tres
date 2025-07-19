@@ -1,15 +1,13 @@
-[gd_resource type="Resource" script_class="WaveResource" load_steps=4 format=3 uid="uid://dh78x2sjffj2f"]
+[gd_resource type="Resource" script_class="WaveResource" load_steps=3 format=3 uid="uid://dh78x2sjffj2f"]
 
-[ext_resource type="PackedScene" uid="uid://8ed5al6h3k8v" path="res://Scenes/Enemy/enemy_basic.tscn" id="1_ar4yr"]
+[ext_resource type="PackedScene" uid="uid://dvigx2ip6rql5" path="res://Scenes/Enemy/enemy_tall_boy.tscn" id="1_ar4yr"]
 [ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_apkiu"]
-[ext_resource type="PackedScene" uid="uid://dexawkgpee6i5" path="res://Scenes/Enemy/enemy_small.tscn" id="2_ihd6j"]
 
 [resource]
 script = ExtResource("2_apkiu")
 delay = 2.0
 spawn_type = "normal"
 enemies = Dictionary[PackedScene, int]({
-ExtResource("1_ar4yr"): 9,
-ExtResource("2_ihd6j"): 14
+ExtResource("1_ar4yr"): 1
 })
 metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

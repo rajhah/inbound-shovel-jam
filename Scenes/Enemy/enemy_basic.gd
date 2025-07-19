@@ -34,6 +34,10 @@ func _ready():
 
 	player = get_tree().get_first_node_in_group("player")
 	add_to_group("enemies")
+	_internal_ready()
+
+func _internal_ready():
+	pass
 
 func _physics_process(delta):
 	if not player:
@@ -42,9 +46,9 @@ func _physics_process(delta):
 	if downState:
 		return
 
-	update_nearby_enemies()
+	_update_nearby_enemies()
 
-	var target_velocity = calculate_movement_direction() * speed
+	var target_velocity = _calculate_movement_direction() * speed
 
 	# Smooth velocity changes
 	if target_velocity.length() > 0:
@@ -52,17 +56,21 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
+	_internal_process()
+
 	move_and_slide()
+	_check_collisions()
 
-	check_collisions()
+func _internal_process():
+	pass
 
-func check_collisions():
+func _check_collisions():
 	if get_slide_collision_count() > 0:
 		var collision = get_slide_collision(0)
 		if collision.get_collider().name == "player":
 			player._lose_hp(contactDamage)
 
-func update_nearby_enemies():
+func _update_nearby_enemies():
 	nearby_enemies.clear()
 	var enemies = get_tree().get_nodes_in_group("enemies")
 
@@ -72,7 +80,7 @@ func update_nearby_enemies():
 			if distance <= separation_distance * 2:
 				nearby_enemies.append(enemy)
 
-func calculate_movement_direction() -> Vector2:
+func _calculate_movement_direction() -> Vector2:
 	var direction = Vector2.ZERO
 
 	var distance_to_player = global_position.distance_to(player.global_position)
@@ -81,11 +89,11 @@ func calculate_movement_direction() -> Vector2:
 	elif distance_to_player > follow_distance + follow_deadzone:
 		direction += (player.global_position - global_position).normalized()
 
-	direction += calculate_separation_direction()
+	direction += _calculate_separation_direction()
 
 	return direction.normalized()
 
-func calculate_separation_direction() -> Vector2:
+func _calculate_separation_direction() -> Vector2:
 	if nearby_enemies.is_empty():
 		return Vector2.ZERO
 
@@ -104,26 +112,27 @@ func calculate_separation_direction() -> Vector2:
 	return separation_vec.normalized() * (separation_force / 100.0)
 
 func hit_by_vacuum(vacPos: Vector2):
+	print_debug("hit")
 	health += -Global.mainWeaponDamage
 	if health == 0:
 		downTimer.start()
 		downState = true
 	elif health < 0:
-		get_collected(vacPos)
+		_get_collected(vacPos)
 
 func _on_down_timer_timeout() -> void:
 	downState = false
 
-func get_collected(vacPos: Vector2):
+func _get_collected(vacPos: Vector2):
 	col.disabled = true
 	player._gain_xp(xpOnDeath)
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", vacPos, 0.25)
 	tween.parallel().tween_property(self, "rotation", PI, 0.25)
 	tween.parallel().tween_property(self, "scale", Vector2.ZERO, 0.4)
-	tween.tween_callback(die)
+	tween.tween_callback(_die)
 
-func die():
+func _die():
 	player.play_enemy_sfx(enemy_type)
 	dead.emit(self)
 	queue_free()

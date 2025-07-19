@@ -46,6 +46,7 @@ signal musicOff
 
 signal closeDebugMenu
 signal setCurrentLevel
+signal loseHp
 
 enum ButtonType {
 	PLAYERINVULNTIME,

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dflpw5a6jcakl"]
+
+[ext_resource type="Script" uid="uid://d3lmv6lefs8ex" path="res://Scenes/Enemy/bullet.gd" id="1_0frkc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhcre"]
+size = Vector2(2, 15)
+
+[node name="bullet" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_0frkc")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, 1)
+polygon = PackedVector2Array(2, 0, 2, -9, -2, -9, -2, 8, 2, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_qhcre")
+
+[node name="TTL Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="TTL Timer" to="." method="_on_ttl_timer_timeout"]

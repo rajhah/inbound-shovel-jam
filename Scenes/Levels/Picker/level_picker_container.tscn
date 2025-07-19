@@ -24,6 +24,7 @@ offset_bottom = 582.0
 texture = SubResource("CanvasTexture_c25h4")
 
 [node name="Level 1" type="Button" parent="LevelPicker"]
+layout_mode = 0
 offset_left = 347.0
 offset_top = 94.0
 offset_right = 414.0
@@ -33,6 +34,7 @@ script = ExtResource("2_c25h4")
 level = 1
 
 [node name="Level 2" type="Button" parent="LevelPicker"]
+layout_mode = 0
 offset_left = 445.0
 offset_top = 96.0
 offset_right = 512.0
