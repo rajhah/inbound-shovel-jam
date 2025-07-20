@@ -10,7 +10,18 @@ var currentLevel: int = 0
 var currentWave: int = 0
 var waveTimer: Timer
 
-var currentLevelEnemies: Array = []
+var validVectors = [
+	Vector2(1.0, -1.0),
+	Vector2(1.0, 0.0),
+	Vector2(1.0, 1.0),
+	Vector2(-1.0, -1.0),
+	Vector2(-1.0, 0.0),
+	Vector2(-1.0, 1.0),
+	Vector2(0.0, 1.0),
+	Vector2(0.0, -1.0),
+]
+
+var thisRandomVector: Vector2
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -19,13 +30,23 @@ func _ready() -> void:
 
 	Global.xpBarFull.connect(_spawn_trash_can)
 	Global.setCurrentLevel.connect(_set_current_level)
+	Global.respawnEnemy.connect(_respawn_enemy)
 
 	waveTimer = Timer.new()
 	waveTimer.one_shot = true
 	waveTimer.timeout.connect(_on_wave_timer_timeout)
 	add_child(waveTimer)
 	if levels.size() > 0:
-		_start_wave()
+		call_deferred("_start_wave")
+
+func _process(_delta: float) -> void:
+	if player and trashCanInstance:
+		if trashCanInstance.global_position.distance_to(player.global_position) > 1800:
+			trashCanInstance.global_position = _calculateSpawnPosition("normal")
+			Global.trashCanCreated.emit(trashCanInstance)
+
+func _respawn_enemy(e: Enemy):
+	e.global_position = _calculateSpawnPosition("normal")
 
 func _set_current_level(level: int):
 	_clear_all_enemies()
@@ -34,19 +55,28 @@ func _set_current_level(level: int):
 	_start_wave()
 
 func _clear_all_enemies():
-	for i in currentLevelEnemies:
-		i.queue_free()
-	currentLevelEnemies.clear()
+	for i in get_tree().get_nodes_in_group("enemies"):
+		i.call_deferred("queue_free")
+	for bullet in get_tree().get_nodes_in_group("bullets"):
+		bullet.call_deferred("queue_free")
 
 func _start_wave():
+
+	if get_tree().get_nodes_in_group("enemies").size() > 99:
+		await get_tree().create_timer(10).timeout
+		_start_wave()
+
 	var currentLevelResource = levels[currentLevel]
 
 	if currentLevel >= levels.size():
-		print_debug("all levels complete")
 		return
 
-	var currentWaveResource = currentLevelResource.waves[currentWave]
+	Global.currentWave.emit(currentLevel + 1, levels.size(), currentWave + 1, currentLevelResource.waves.size())
 
+	if currentLevel == 0 and currentWave == 0:
+		await get_tree().create_timer(1.0).timeout
+
+	var currentWaveResource = currentLevelResource.waves[currentWave]
 	waveTimer.wait_time = currentWaveResource.delay
 	waveTimer.start()
 
@@ -57,17 +87,18 @@ func _on_wave_timer_timeout():
 	if currentWave + 1 < levels[currentLevel].waves.size():
 		currentWave += 1
 		_start_wave()
+	else:
+		_on_level_complete()
 
 func _spawn_enemies(enemyDict: Dictionary, spawnType: String):
 	for enemyScene in enemyDict:
 		var count = enemyDict[enemyScene]
 		if enemyScene != null:
+			thisRandomVector = _get_random_vector()
 			for i in range(count):
 				var enemy = enemyScene.instantiate()
 				enemy.position = _calculateSpawnPosition(spawnType)
 				add_child(enemy)
-				currentLevelEnemies.append(enemy)
-				enemy.connect("dead", _on_enemy_died)
 
 func _spawn_trash_can():
 	if get_tree().get_nodes_in_group("trashCan").is_empty():
@@ -76,11 +107,6 @@ func _spawn_trash_can():
 		add_child(trashCanInstance)
 		trashCanInstance.add_to_group("trashCan")
 		Global.trashCanCreated.emit(trashCanInstance)
-
-func _on_enemy_died(enemy):
-	currentLevelEnemies.erase(enemy)
-	if currentLevelEnemies.is_empty() and currentWave + 1 == levels[currentLevel].waves.size():
-		_on_level_complete()
 
 func _on_level_complete():
 	await get_tree().create_timer(levels[currentLevel].timeBeforeStartingNextLevel).timeout
@@ -93,13 +119,16 @@ func _calculateSpawnPosition(spawnType: String) -> Vector2:
 	if not player:
 		return Vector2.ZERO
 
-	var distance = 600
+	var distance = 500
 	if spawnType == "trashCan":
 		distance = 900
 	var ppos = player.global_position
-	var pdir = player.direction
-	if pdir != Vector2.ZERO and spawnType == "normal":
-			var perpendicular = Vector2(-pdir.y, pdir.x)
+	if spawnType == "normal":
+			var pdir = player.direction
+			var perpendicular: Vector2
+			if pdir == Vector2.ZERO:
+				pdir = thisRandomVector
+			perpendicular = Vector2(-pdir.y, pdir.x)
 			var forwardOffset = pdir * distance
 			var sideOffset = perpendicular * randf_range(-300, 300)
 			return ppos + forwardOffset + sideOffset
@@ -107,13 +136,5 @@ func _calculateSpawnPosition(spawnType: String) -> Vector2:
 		var random_angle = randf() * 2 * PI
 		return ppos + Vector2(cos(random_angle), sin(random_angle)) * distance
 
-func _process(_delta: float) -> void:
-	if player and !currentLevelEnemies.is_empty():
-		for enemy in currentLevelEnemies:
-			if enemy.global_position.distance_to(player.global_position) > 700:
-				enemy.global_position = _calculateSpawnPosition("normal")
-
-	if player and trashCanInstance:
-		if trashCanInstance.global_position.distance_to(player.global_position) > 1800:
-			trashCanInstance.global_position = _calculateSpawnPosition("normal")
-			Global.trashCanCreated.emit(trashCanInstance)
+func _get_random_vector() -> Vector2:
+	return validVectors[randi_range(0, validVectors.size() - 1)]

@@ -1,11 +1,21 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=4 format=3 uid="uid://rwr6raay1jwv"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=14 format=3 uid="uid://rwr6raay1jwv"]
 
 [ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_8ncur"]
 [ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_8qrww"]
 [ext_resource type="Resource" uid="uid://dh78x2sjffj2f" path="res://Scenes/Levels/Level 1/Wave_1-1.tres" id="3_omkc0"]
+[ext_resource type="Resource" uid="uid://dxonvfb3dwmox" path="res://Scenes/Levels/Level 1/Wave_1-2.tres" id="4_omkc0"]
+[ext_resource type="Resource" uid="uid://bu5x61280jtmb" path="res://Scenes/Levels/Level 1/Wave_1-3.tres" id="5_5iu5o"]
+[ext_resource type="Resource" uid="uid://b370jhdysltgg" path="res://Scenes/Levels/Level 1/Wave_1-4.tres" id="6_5iu5o"]
+[ext_resource type="Resource" uid="uid://ci35llfnbbp80" path="res://Scenes/Levels/Level 1/Wave_1-5.tres" id="7_fcvy3"]
+[ext_resource type="Resource" uid="uid://b4how38mln1e5" path="res://Scenes/Levels/Level 1/Wave_1-6.tres" id="8_y4w2k"]
+[ext_resource type="Resource" uid="uid://dd8mo5gqp8ae0" path="res://Scenes/Levels/Level 1/Wave_1-7.tres" id="9_w24vh"]
+[ext_resource type="Resource" uid="uid://brpaxvu0pyclu" path="res://Scenes/Levels/Level 1/Wave_1-8.tres" id="10_5muy5"]
+[ext_resource type="Resource" uid="uid://e85hcwmugyc4" path="res://Scenes/Levels/Level 1/Wave_1-9.tres" id="11_akg6x"]
+[ext_resource type="Resource" uid="uid://cq6jblqmhlxq8" path="res://Scenes/Levels/Level 1/Wave_1-10.tres" id="12_5muy5"]
+[ext_resource type="Resource" uid="uid://cpni5w8h01lre" path="res://Scenes/Levels/Level 1/Wave_1-11.tres" id="13_akg6x"]
 
 [resource]
 script = ExtResource("1_8ncur")
-waves = Array[ExtResource("2_8qrww")]([ExtResource("3_omkc0")])
-timeBeforeStartingNextLevel = 1
+waves = Array[ExtResource("2_8qrww")]([ExtResource("3_omkc0"), ExtResource("4_omkc0"), ExtResource("5_5iu5o"), ExtResource("6_5iu5o"), ExtResource("7_fcvy3"), ExtResource("8_y4w2k"), ExtResource("9_w24vh"), ExtResource("10_5muy5"), ExtResource("11_akg6x"), ExtResource("12_5muy5"), ExtResource("13_akg6x")])
+timeBeforeStartingNextLevel = 10
 metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

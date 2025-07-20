@@ -15,8 +15,10 @@ func _ready() -> void:
 	_on_trash_can_deleted()
 
 func _process(_delta: float) -> void:
-	if player:
-		global_position = player.global_position
+	if !player:
+		return
+
+	global_position = player.global_position
 	var direction = (target - global_position).normalized()
 	rotation = direction.angle() + deg_to_rad(90)
 	spr.rotation = -direction.angle() - deg_to_rad(90)

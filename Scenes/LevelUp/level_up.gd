@@ -5,7 +5,6 @@ var buttons: Dictionary = {
 	Global.ButtonType.PLAYERSPEED: preload("res://Scenes/LevelUp/Buttons/PlayerSpeed.tscn"),
 	Global.ButtonType.WEAPONCOOLDOWN: preload("res://Scenes/LevelUp/Buttons/WeaponCooldownButton.tscn"),
 	Global.ButtonType.WEAPONDAMAGE: preload("res://Scenes/LevelUp/Buttons/WeaponDamage.tscn"),
-	Global.ButtonType.WEAPONHITMAX: preload("res://Scenes/LevelUp/Buttons/WeaponHitMax.tscn"),
 	Global.ButtonType.WEAPONSCALE: preload("res://Scenes/LevelUp/Buttons/WeaponScaleButton.tscn")
 	}
 

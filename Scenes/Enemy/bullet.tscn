@@ -17,10 +17,9 @@ polygon = PackedVector2Array(2, 0, 2, -9, -2, -9, -2, 8, 2, 8)
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_qhcre")
 
-[node name="TTL Timer" type="Timer" parent="."]
+[node name="TTLTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="TTL Timer" to="." method="_on_ttl_timer_timeout"]
+[connection signal="timeout" from="TTLTimer" to="." method="_on_ttl_timer_timeout"]

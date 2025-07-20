@@ -1,12 +1,10 @@
 extends Node
 
-var mainWeaponCooldownLevels = [2.0, 1.6, 1.2, 0.8, 0.4]
+var healthPackScene = preload("res://Scenes/Trashcan/health_pack.tscn")
+
+var mainWeaponCooldownLevels = [2.0, 1.6, 1.2, 1.0, 0.9]
 var mainWeaponCooldownIndex = 0
 var mainWeaponCooldown: float = 2.0
-
-var mainWeaponTargetsLevels = [5, 7, 9, 10, 11]
-var mainWeaponTargetsIndex = 0
-var mainWeaponHitMax: int = 5
 
 var mainWeaponDamageLevels = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
 var mainWeaponDamageIndex = 0
@@ -30,10 +28,15 @@ var playerXpScaleFactor: float = 1.0
 var playerXpScaleFactorIncrease: float = -0.1
 var playerXpScaleFactorMin: float = 0.1
 
+var mainWeaponHitMax: int = 5
+var mainWeaponHitMaxIncrease: int = 1
+
+signal currentWave
 signal xpBarFull
 signal maxLevelReached
 signal trashCanCreated
 signal trashCanDeleted
+signal healthPackDeleted
 
 signal attributeUpdated
 signal weaponScaleUpdated
@@ -48,12 +51,13 @@ signal closeDebugMenu
 signal setCurrentLevel
 signal loseHp
 
+signal respawnEnemy
+
 enum ButtonType {
 	PLAYERINVULNTIME,
 	PLAYERSPEED,
 	WEAPONCOOLDOWN,
 	WEAPONDAMAGE,
-	WEAPONHITMAX,
 	WEAPONSCALE
 }
 
@@ -68,7 +72,6 @@ var musicEnabled := true
 
 func _ready() -> void:
 	mainWeaponCooldown = mainWeaponCooldownLevels[mainWeaponCooldownIndex]
-	mainWeaponHitMax = mainWeaponTargetsLevels[mainWeaponTargetsIndex]
 	mainWeaponDamage = mainWeaponDamageLevels[mainWeaponDamageIndex]
 	playerSpeedMultiplier = playerSpeedMultiplierLevels[playerSpeedMultiplierIndex]
 	playerInvulnTime = playerInvulnTimeLevels[playerInvulnTimeIndex]
@@ -78,11 +81,11 @@ func _ready() -> void:
 
 
 func _attribute_updated():
+
+	mainWeaponHitMax += mainWeaponHitMaxIncrease
+
 	if mainWeaponCooldown != mainWeaponCooldownLevels[mainWeaponCooldownIndex]:
 		mainWeaponCooldown = mainWeaponCooldownLevels[mainWeaponCooldownIndex]
-
-	if mainWeaponHitMax != mainWeaponTargetsLevels[mainWeaponTargetsIndex]:
-		mainWeaponHitMax = mainWeaponTargetsLevels[mainWeaponTargetsIndex]
 
 	if mainWeaponDamage != mainWeaponDamageLevels[mainWeaponDamageIndex]:
 		mainWeaponDamage = mainWeaponDamageLevels[mainWeaponDamageIndex]
@@ -106,3 +109,9 @@ func toggle_music():
 		musicOn.emit()
 	else:
 		musicOff.emit()
+
+func trySpawnHealthPack(pos: Vector2):
+	if randi_range(0, 39) == 17:
+		var healthPack = healthPackScene.instantiate()
+		healthPack.global_position = pos
+		get_tree().current_scene.add_child(healthPack)

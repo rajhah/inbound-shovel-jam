@@ -1,6 +1,6 @@
 extends Resource
 class_name WaveResource
 
-@export var delay: float
-@export_enum("normal", "circle") var spawn_type: String
+@export_range(0.1, 30.0) var delay: float = 1.0
+@export_enum("normal", "circle") var spawn_type: String = "normal"
 @export var enemies: Dictionary[PackedScene, int]

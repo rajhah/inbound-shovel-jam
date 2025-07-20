@@ -7,12 +7,14 @@ var downHold: bool
 
 var maxSpeed = 175
 var playerSpeedMultiplier := 1.0
+var vulnerable := true
 
 var paperSound = preload("res://Assets/Sound/paper.mp3")
 var bottleSound = preload("res://Assets/Sound/bottle.mp3")
 var clothesSound = preload("res://Assets/Sound/clothes.mp3")
 var levelUpSound = preload("res://Assets/Sound/levelup.mp3")
 var hurtSound = preload("res://Assets/Sound/weird-grunt-85631.mp3")
+var healSound = preload("res://Assets/Sound/heal.mp3")
 
 var direction: Vector2:
 	get:
@@ -28,7 +30,6 @@ var experience: int:
 
 var mousePosition
 @export var ui: CanvasLayer
-@export var overlay: TextureRect
 
 @onready var col := $CollisionShape2D
 @onready var sfxPlayer := $Sfx
@@ -43,6 +44,7 @@ func _ready() -> void:
 	Global.trashCanDeleted.connect(_reset_xp)
 	Global.maxLevelReached.connect(_max_level_reached)
 	Global.loseHp.connect(_lose_hp)
+	Global.healthPackDeleted.connect(_lose_hp)
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -116,6 +118,14 @@ func _play_hurt_sfx():
 		sfxPlayer.pitch_scale = rand
 		sfxPlayer.play()
 
+func _play_heal_sfx():
+		if Global.soundEnabled:
+			sfxPlayer.stop()
+			var rand = randf_range(0.9, 1.1)
+			sfxPlayer.stream = healSound
+			sfxPlayer.pitch_scale = rand
+			sfxPlayer.play()
+
 func _max_level_reached():
 	maxLevel = true
 
@@ -123,18 +133,30 @@ func _reset_xp():
 	ui.xp = 0
 
 func _lose_hp(hp: int):
-	ui.hp += -hp
-	_play_hurt_sfx()
-	if ui.hp > 0:
-		col.set_deferred("disabled", true)
-		camera.shake()
-		await get_tree().create_timer(Global.playerInvulnTime).timeout
-		col.disabled = false
-	else:
-		die()
+	if hp < 0:
+		var heal = -hp
+		ui.hp = min(100, ui.hp + heal)
+		_play_heal_sfx()
+	elif vulnerable:
+		ui.hp += -hp
+		_play_hurt_sfx()
+		if ui.hp > 0:
+			vulnerable = false
+			col.set_deferred("disabled", true)
+			camera.shake()
+			await get_tree().create_timer(Global.playerInvulnTime).timeout
+			vulnerable = true
+			col.disabled = false
+		else:
+			die()
 
 func die():
 	Global.playerDied.emit()
+	await get_tree().process_frame
+	for bullet in get_tree().get_nodes_in_group("bullets"):
+		bullet.call_deferred("queue_free")
 	for enemy in get_tree().get_nodes_in_group("enemies"):
-		enemy.queue_free()
-	queue_free()
+		enemy.call_deferred("queue_free")
+	for trashcan in get_tree().get_nodes_in_group("trashCan"):
+		trashcan.call_deferred("queue_free")
+	call_deferred("queue_free")

@@ -1,22 +1,27 @@
 extends Area2D
 
+class_name Bullet
+
 @export var velocity := 5
 @export var contactDamage := 3
+@export var bulletDeathTime := 3.0
 @onready var polygon := $Polygon2D
 var hue := 0.0
 var target: Vector2
-var player: Node2D
 var direction: Vector2
+@onready var ttl_timer := $TTLTimer
+signal bulletDeath
 
-
-func initialize(pos: Vector2, targ: Vector2):
+func initialize(pos: Vector2, rot: float, time_to_live: float = 3.0, timer_autostart: bool = true):
 	global_position = pos
-	target = targ
-	direction = (target - global_position).normalized()
-	rotation = get_angle_to(targ) + PI/2
+	direction = Vector2.from_angle(rot).normalized()
+	ttl_timer.wait_time = time_to_live
+	if timer_autostart:
+		ttl_timer.start()
+	rotation = rot + PI/2
 
 func _ready() -> void:
-	player = get_tree().get_first_node_in_group("player")
+	add_to_group("bullets")
 
 func _process(delta: float) -> void:
 		hue += 1.2 * delta
@@ -36,4 +41,4 @@ func _on_ttl_timer_timeout() -> void:
 	call_deferred("die")
 
 func die():
-	queue_free()
+	bulletDeath.emit(self)
