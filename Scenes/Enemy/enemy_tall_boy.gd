@@ -40,11 +40,12 @@ func _on_shoot_timer_timeout() -> void:
 
 func _shoot():
 	await get_tree().create_timer(0.4).timeout
-	bullet.initialize(global_position, target_angle - PI/2, 3.0, true)
-	bullet.visible = true
-	shootTimer.start()
-	await get_tree().create_timer(0.4).timeout
-	shooting = false
+	if bullet:
+		bullet.initialize(global_position, target_angle - PI/2, 3.0, true)
+		bullet.visible = true
+		shootTimer.start()
+		await get_tree().create_timer(0.4).timeout
+		shooting = false
 
 func _calculate_movement_direction() -> Vector2:
 	var direction = Vector2.ZERO

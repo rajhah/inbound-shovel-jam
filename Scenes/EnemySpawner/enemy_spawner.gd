@@ -67,12 +67,6 @@ func _start_wave():
 
 	var currentLevelResource = levels[currentLevel]
 
-	if currentLevel >= levels.size():
-		currentLevel -= 1
-		currentWave = 0
-		_on_wave_timer_timeout()
-		return
-
 	Global.currentWave.emit(currentLevel + 1, levels.size(), currentWave + 1, currentLevelResource.waves.size())
 
 	var currentWaveResource = currentLevelResource.waves[currentWave]
@@ -115,6 +109,9 @@ func _on_level_complete():
 	await get_tree().create_timer(levels[currentLevel].timeBeforeStartingNextLevel).timeout
 	if currentLevel + 1 < levels.size():
 		currentLevel += 1
+		currentWave = 0
+		_start_wave()
+	else:
 		currentWave = 0
 		_start_wave()
 

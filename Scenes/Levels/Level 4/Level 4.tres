@@ -8,5 +8,5 @@
 [resource]
 script = ExtResource("1_y6xbs")
 waves = Array[ExtResource("2_yvhxi")]([ExtResource("3_ekhn0"), ExtResource("3_ekhn0"), ExtResource("4_n6utv")])
-timeBeforeStartingNextLevel = 20.0
+timeBeforeStartingNextLevel = 12.0
 metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

@@ -5,7 +5,7 @@ var leftHold: bool
 var upHold: bool
 var downHold: bool
 
-var maxSpeed = 150
+var maxSpeed = 175
 var playerSpeedMultiplier := 1.0
 var vulnerable := true
 
@@ -58,6 +58,7 @@ func _physics_process(_delta: float) -> void:
 	#Debug commands
 	if Input.is_action_pressed("LevelUp"):
 		Global.trashCanDeleted.emit()
+		Global.update_xp_scale_factor()
 	if Input.is_action_pressed("Sudoku"):
 		_lose_hp(100)
 
@@ -84,8 +85,7 @@ func _gain_xp(xp: int):
 		ui.xp += xp * Global.playerXpScaleFactor
 		if ui.xp >= 100 and !maxLevel:
 			Global.xpBarFull.emit()
-			if Global.playerXpScaleFactor > Global.playerXpScaleFactorMin:
-				Global.playerXpScaleFactor += Global.playerXpScaleFactorIncrease
+			Global.update_xp_scale_factor()
 
 func play_enemy_sfx(enemy_type: Global.enemyType):
 	if !sfxPlayer.playing and Global.soundEnabled:
@@ -128,8 +128,6 @@ func _play_heal_sfx():
 
 func _max_level_reached():
 	maxLevel = true
-	Global.playerXpScaleFactor = 0
-	ui.xp = 0
 
 func _reset_xp():
 	ui.xp = 0

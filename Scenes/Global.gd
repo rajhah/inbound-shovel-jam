@@ -10,23 +10,22 @@ var mainWeaponDamageLevels = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
 var mainWeaponDamageIndex = 0
 var mainWeaponDamage: float = 1.0
 
-var playerSpeedMultiplierLevels = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+var playerSpeedMultiplierLevels = [1.0, 1.4, 1.6, 1.8, 2.0]
 var playerSpeedMultiplierIndex = 0
 var playerSpeedMultiplier: float = 1.0
 #These are used directly and only need to be updated here
 
-var playerInvulnTimeLevels = [1.0, 1.5, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0]
+var playerInvulnTimeLevels = [1.0, 2.0, 3.0, 4.0, 5.0]
 var playerInvulnTimeIndex = 0
 var playerInvulnTime: float = 1.0
 
 #This one needs to be updated
-var mainWeaponSizeLevels = [2.0, 2.6, 3.2, 3.8, 4.4, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0]
+var mainWeaponSizeLevels = [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
 var mainWeaponSizeIndex = 0
 var mainWeaponSize: float = 2.0
 
+var playerLevel: int = 0
 var playerXpScaleFactor: float = 1.0
-var playerXpScaleFactorIncrease: float = -0.05
-var playerXpScaleFactorMin: float = 0.1
 
 var mainWeaponHitMax: int = 5
 var mainWeaponHitMaxIncrease: int = 2
@@ -79,17 +78,22 @@ func _ready() -> void:
 
 	attributeUpdated.connect(_attribute_updated)
 
+func update_xp_scale_factor():
+	playerXpScaleFactor = max(0.1, pow(0.90, playerLevel - 1))
+
 func resetAttributes():
-	mainWeaponHitMax = 2
+	mainWeaponHitMax = 5
 	mainWeaponCooldownIndex = 0
 	mainWeaponDamageIndex = 0
 	playerSpeedMultiplierIndex = 0
 	playerInvulnTimeIndex = 0
 	mainWeaponSizeIndex = 0
+	playerLevel = 0
+	playerXpScaleFactor = 1.0
 	_attribute_updated()
 
 func _attribute_updated():
-
+	playerLevel += 1
 	mainWeaponHitMax += mainWeaponHitMaxIncrease
 
 	if mainWeaponCooldown != mainWeaponCooldownLevels[mainWeaponCooldownIndex]:

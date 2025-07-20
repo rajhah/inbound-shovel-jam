@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_xeh56")
 delay = 8.0
-spawn_type = "normal"
+spawn_type = "circle"
 enemies = Dictionary[PackedScene, int]({
 ExtResource("1_0xqho"): 30
 })

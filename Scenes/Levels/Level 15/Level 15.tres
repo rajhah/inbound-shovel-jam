@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://cu3otliicvbg8"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=7 format=3 uid="uid://cu3otliicvbg8"]
 
 [ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_w2poj"]
 [ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_tfcd6"]
+[ext_resource type="Resource" uid="uid://dprjhta7s5ow3" path="res://Scenes/Levels/Level 15/30mdsp.tres" id="3_jfy0c"]
+[ext_resource type="Resource" uid="uid://dl6re87ofs6jn" path="res://Scenes/Levels/Level 15/30lgsp.tres" id="4_cvis7"]
+[ext_resource type="Resource" uid="uid://6f76xatq8egw" path="res://Scenes/Levels/Level 15/30smU_3mj.tres" id="5_su4ii"]
+[ext_resource type="Resource" uid="uid://b3sjpci2giblm" path="res://Scenes/Levels/Level 15/10mU_6tbsp.tres" id="6_ii4sx"]
 
 [resource]
 script = ExtResource("1_w2poj")
-waves = Array[ExtResource("2_tfcd6")]([])
+waves = Array[ExtResource("2_tfcd6")]([ExtResource("3_jfy0c"), ExtResource("4_cvis7"), ExtResource("5_su4ii"), ExtResource("6_ii4sx")])
 timeBeforeStartingNextLevel = 2.0
 metadata/_custom_type_script = "uid://bpee8s0i6gf6w"
