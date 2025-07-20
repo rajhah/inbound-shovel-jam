@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhida0e3j56t5"]
+
+[ext_resource type="Script" uid="uid://ber5h8wkywo3p" path="res://Scenes/Enemy/enemy_basic.gd" id="1_3qp2s"]
+[ext_resource type="Texture2D" uid="uid://cytd7io612ysc" path="res://Assets/paperMedium.png" id="2_3s0iq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ntch3"]
+radius = 9.05539
+
+[node name="Enemy_Basic" type="CharacterBody2D"]
+modulate = Color(0.458824, 1, 1, 1)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_3qp2s")
+xpOnDeath = 6
+contactDamage = 8
+speed = 45.0
+health = 6.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3s0iq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ntch3")
+
+[node name="downTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="downTimer" to="." method="_on_down_timer_timeout"]

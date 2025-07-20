@@ -4,6 +4,7 @@ class_name MilkJug
 
 @export var numBullets: int = 16
 @onready var shootTimer := $shootTimer
+@onready var spr := $Sprite2D
 var shooting := false
 var target_angle: float
 var bulletScene = preload("res://Scenes/Enemy/bullet.tscn")
@@ -27,6 +28,7 @@ func _internal_process():
 func _internal_get_collected():
 	for bullet in bulletArray:
 		bullet.call_deferred("queue_free")
+	bulletArray.clear()
 
 func _on_shoot_timer_timeout() -> void:
 	if downTimer.is_stopped():
@@ -37,14 +39,14 @@ func _shrink():
 	var tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_QUINT)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(0.7, 0.7), 0.5)
+	tween.tween_property(spr, "scale", Vector2(0.7, 0.7), 0.5)
 	tween.tween_callback(_expand)
 
 func _expand():
 	var tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1, 1), 3.0)
+	tween.tween_property(spr, "scale", Vector2(1, 1), 3.0)
 	_shoot()
 
 func _shoot():

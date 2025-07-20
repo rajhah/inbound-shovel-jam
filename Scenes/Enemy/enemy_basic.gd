@@ -8,7 +8,7 @@ class_name Enemy
 @export var follow_distance: float = 20.0
 @export var follow_deadzone: float = 5.0
 @export var health: float = 1.0
-@export var downTime: int = 10
+@export var downTime: float = 5.0
 @export_range(0.0, 1.0, 0.05) var jitter_strength: float = 0.2
 @export_range(0.1, 5.0, 0.1) var jitter_change_interval: float = 4.0
 

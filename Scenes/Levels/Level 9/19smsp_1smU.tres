@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=4 format=3 uid="uid://dr41nyje2isqw"]
+
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="1_kacgs"]
+[ext_resource type="PackedScene" uid="uid://dclsucossdu55" path="res://Scenes/Enemy/EnemyScenes/e_paper_small_special.tscn" id="1_pb7cr"]
+[ext_resource type="PackedScene" uid="uid://b2aimy5lwdq3n" path="res://Scenes/Enemy/EnemyScenes/e_paper_small_uber.tscn" id="2_nlvxi"]
+
+[resource]
+script = ExtResource("1_kacgs")
+delay = 8.0
+spawn_type = "normal"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_pb7cr"): 19,
+ExtResource("2_nlvxi"): 1
+})
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

@@ -25,11 +25,11 @@ var mainWeaponSizeIndex = 0
 var mainWeaponSize: float = 2.0
 
 var playerXpScaleFactor: float = 1.0
-var playerXpScaleFactorIncrease: float = -0.1
+var playerXpScaleFactorIncrease: float = -0.05
 var playerXpScaleFactorMin: float = 0.1
 
 var mainWeaponHitMax: int = 5
-var mainWeaponHitMaxIncrease: int = 1
+var mainWeaponHitMaxIncrease: int = 2
 
 signal currentWave
 signal xpBarFull
@@ -79,6 +79,14 @@ func _ready() -> void:
 
 	attributeUpdated.connect(_attribute_updated)
 
+func resetAttributes():
+	mainWeaponHitMax = 2
+	mainWeaponCooldownIndex = 0
+	mainWeaponDamageIndex = 0
+	playerSpeedMultiplierIndex = 0
+	playerInvulnTimeIndex = 0
+	mainWeaponSizeIndex = 0
+	_attribute_updated()
 
 func _attribute_updated():
 

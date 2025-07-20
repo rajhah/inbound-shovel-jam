@@ -52,7 +52,7 @@ func _set_current_level(level: int):
 	_clear_all_enemies()
 	currentLevel = level
 	currentWave = 0
-	_start_wave()
+	_on_wave_timer_timeout()
 
 func _clear_all_enemies():
 	for i in get_tree().get_nodes_in_group("enemies"):
@@ -61,24 +61,27 @@ func _clear_all_enemies():
 		bullet.call_deferred("queue_free")
 
 func _start_wave():
-
-	if get_tree().get_nodes_in_group("enemies").size() > 99:
-		await get_tree().create_timer(10).timeout
-		_start_wave()
+	#if get_tree().get_nodes_in_group("enemies").size() > 99:
+		#await get_tree().create_timer(10).timeout
+		#_start_wave()
 
 	var currentLevelResource = levels[currentLevel]
 
 	if currentLevel >= levels.size():
+		currentLevel -= 1
+		currentWave = 0
+		_on_wave_timer_timeout()
 		return
 
 	Global.currentWave.emit(currentLevel + 1, levels.size(), currentWave + 1, currentLevelResource.waves.size())
 
-	if currentLevel == 0 and currentWave == 0:
-		await get_tree().create_timer(1.0).timeout
-
 	var currentWaveResource = currentLevelResource.waves[currentWave]
-	waveTimer.wait_time = currentWaveResource.delay
-	waveTimer.start()
+
+	if currentLevel == 0 and currentWave == 0:
+		_on_wave_timer_timeout()
+	else:
+		waveTimer.wait_time = currentWaveResource.delay
+		waveTimer.start()
 
 func _on_wave_timer_timeout():
 	var currentWaveResource = levels[currentLevel].waves[currentWave]

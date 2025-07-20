@@ -5,7 +5,7 @@ var leftHold: bool
 var upHold: bool
 var downHold: bool
 
-var maxSpeed = 175
+var maxSpeed = 150
 var playerSpeedMultiplier := 1.0
 var vulnerable := true
 
@@ -128,6 +128,8 @@ func _play_heal_sfx():
 
 func _max_level_reached():
 	maxLevel = true
+	Global.playerXpScaleFactor = 0
+	ui.xp = 0
 
 func _reset_xp():
 	ui.xp = 0

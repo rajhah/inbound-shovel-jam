@@ -1,5 +1,6 @@
 extends Enemy
 
+@export var shootTime: float = 4.0
 var bulletScene := preload("res://Scenes/Enemy/bullet.tscn")
 @onready var shootTimer := $ShootTimer
 var shooting := false
@@ -10,7 +11,7 @@ var piOverTwo := PI/2
 
 func _internal_ready():
 	var rand = randf_range(-0.2, 0.2)
-	shootTimer.wait_time += rand
+	shootTimer.wait_time += shootTime + rand
 	bullet = bulletScene.instantiate()
 	bullet.visible = false
 	get_parent().add_child(bullet)
@@ -22,7 +23,7 @@ func _internal_process():
 	if downTimer.is_stopped():
 		rotation = target_angle
 		target_angle = (player.global_position - global_position).angle() + piOverTwo
-	if bulletDead:
+	if bullet and bulletDead:
 		bullet.global_position = global_position
 
 func _internal_get_collected():

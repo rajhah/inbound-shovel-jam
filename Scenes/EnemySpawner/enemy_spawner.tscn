@@ -1,10 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv2vqhp56f434"]
+[gd_scene load_steps=18 format=3 uid="uid://bv2vqhp56f434"]
 
 [ext_resource type="Script" uid="uid://bis8c2p257e5m" path="res://Scenes/EnemySpawner/enemy_spawner.gd" id="1_p7rck"]
 [ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="2_jfto3"]
 [ext_resource type="Resource" uid="uid://rwr6raay1jwv" path="res://Scenes/Levels/Level 1/Level_1.tres" id="3_vi5lb"]
 [ext_resource type="Resource" uid="uid://ddp8kbtay2u3u" path="res://Scenes/Levels/Level 2/Level_2.tres" id="4_vi5lb"]
+[ext_resource type="Resource" uid="uid://naqtnwt1u70l" path="res://Scenes/Levels/Level 3/Level_3.tres" id="5_2ha11"]
+[ext_resource type="Resource" uid="uid://6pybk5jh8yyt" path="res://Scenes/Levels/Level 4/Level 4.tres" id="6_1psu8"]
+[ext_resource type="Resource" uid="uid://c4eih5jie6dx2" path="res://Scenes/Levels/Level 5/Level 5.tres" id="7_6cvnb"]
+[ext_resource type="Resource" uid="uid://boni65w6n7wwq" path="res://Scenes/Levels/Level 6/Level 6.tres" id="8_fuiid"]
+[ext_resource type="Resource" uid="uid://bppoj6yxadqwc" path="res://Scenes/Levels/Level 7/Level 7.tres" id="9_wq38x"]
+[ext_resource type="Resource" uid="uid://dp0hc7hsadx0y" path="res://Scenes/Levels/Level 8/Level 8.tres" id="10_g8nnp"]
+[ext_resource type="Resource" uid="uid://bepdmtavyhl65" path="res://Scenes/Levels/Level 9/Level 9.tres" id="11_nijaf"]
+[ext_resource type="Resource" uid="uid://s2sxxwnt3mbt" path="res://Scenes/Levels/Level 10/Level 10.tres" id="12_nrde1"]
+[ext_resource type="Resource" uid="uid://b7j55qaw3okic" path="res://Scenes/Levels/Level 11/Level 11.tres" id="13_af06u"]
+[ext_resource type="Resource" uid="uid://dbpxqtuq7qiqu" path="res://Scenes/Levels/Level 12/Level 12.tres" id="14_7cv1h"]
+[ext_resource type="Resource" uid="uid://du042fwokb51u" path="res://Scenes/Levels/Level 13/Level 13.tres" id="15_u4elj"]
+[ext_resource type="Resource" uid="uid://b04c4m0yjkxit" path="res://Scenes/Levels/Level 14/Level 14.tres" id="16_af06u"]
+[ext_resource type="Resource" uid="uid://cu3otliicvbg8" path="res://Scenes/Levels/Level 15/Level 15.tres" id="17_7cv1h"]
 
 [node name="Enemy Spawner" type="Node2D"]
 script = ExtResource("1_p7rck")
-levels = Array[ExtResource("2_jfto3")]([ExtResource("3_vi5lb"), ExtResource("4_vi5lb")])
+levels = Array[ExtResource("2_jfto3")]([ExtResource("3_vi5lb"), ExtResource("4_vi5lb"), ExtResource("5_2ha11"), ExtResource("6_1psu8"), ExtResource("7_6cvnb"), ExtResource("8_fuiid"), ExtResource("9_wq38x"), ExtResource("10_g8nnp"), ExtResource("11_nijaf"), ExtResource("12_nrde1"), ExtResource("13_af06u"), ExtResource("14_7cv1h"), ExtResource("15_u4elj"), ExtResource("16_af06u"), ExtResource("17_7cv1h")])

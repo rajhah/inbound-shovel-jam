@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_c260m"]
 [ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_goqln"]
-[ext_resource type="Resource" uid="uid://dc63b1lemgse3" path="res://Scenes/Levels/Level 2/Wave_2-1.tres" id="3_goqln"]
-[ext_resource type="Resource" uid="uid://b0c1bi5sy8tgg" path="res://Scenes/Levels/Level 2/Wave_2-2.tres" id="4_1pwty"]
-[ext_resource type="Resource" uid="uid://bpe1tdyc3l3ek" path="res://Scenes/Levels/Level 2/Wave_2-3.tres" id="5_3125o"]
+[ext_resource type="Resource" uid="uid://d2bc0dooagg88" path="res://Scenes/Levels/Level 2/10_md.tres" id="3_1pwty"]
+[ext_resource type="Resource" uid="uid://cqtf1oonclptr" path="res://Scenes/Levels/Level 2/30_sm.tres" id="4_3125o"]
+[ext_resource type="Resource" uid="uid://c3haeo1so6frn" path="res://Scenes/Levels/Level 2/9_md_1_mdsp_21_sm.tres" id="5_ftoyy"]
 
 [resource]
 script = ExtResource("1_c260m")
-waves = Array[ExtResource("2_goqln")]([ExtResource("3_goqln"), ExtResource("4_1pwty"), ExtResource("5_3125o")])
-timeBeforeStartingNextLevel = 10
+waves = Array[ExtResource("2_goqln")]([ExtResource("3_1pwty"), ExtResource("4_3125o"), ExtResource("5_ftoyy")])
+timeBeforeStartingNextLevel = 20
 metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

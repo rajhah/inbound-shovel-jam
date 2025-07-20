@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=4 format=3 uid="uid://dp0hc7hsadx0y"]
+
+[ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_yaga5"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_om7af"]
+[ext_resource type="Resource" uid="uid://c12kdua6da2em" path="res://Scenes/Levels/Level 8/1s.tres" id="4_6u12e"]
+
+[resource]
+script = ExtResource("1_yaga5")
+waves = Array[ExtResource("2_om7af")]([ExtResource("4_6u12e"), ExtResource("4_6u12e"), ExtResource("4_6u12e")])
+timeBeforeStartingNextLevel = 12.0
+metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

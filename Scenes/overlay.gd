@@ -30,4 +30,8 @@ func _enable_button():
 	restartButton.disabled = false
 
 func _on_button_pressed() -> void:
+	Global.resetAttributes()
+	call_deferred("reset_scene")
+
+func reset_scene():
 	get_tree().reload_current_scene()

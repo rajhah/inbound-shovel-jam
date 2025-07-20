@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=3 format=3 uid="uid://cnyga2yfnoc65"]
+
+[ext_resource type="PackedScene" uid="uid://bhida0e3j56t5" path="res://Scenes/Enemy/EnemyScenes/e_paper_basic_special.tscn" id="1_ybvuw"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_eekko"]
+
+[resource]
+script = ExtResource("2_eekko")
+delay = 8.0
+spawn_type = "circle"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_ybvuw"): 10
+})
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"
