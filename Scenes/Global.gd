@@ -25,7 +25,8 @@ var mainWeaponSizeIndex = 0
 var mainWeaponSize: float = 2.0
 
 var playerLevel: int = 0
-var playerXpScaleFactor: float = 1.0
+var playerXpScaleFactor: float = 1.3
+var originalPlayerXpScaleFactor: float = 1.3
 
 var mainWeaponHitMax: int = 5
 var mainWeaponHitMaxIncrease: int = 2
@@ -79,7 +80,7 @@ func _ready() -> void:
 	attributeUpdated.connect(_attribute_updated)
 
 func update_xp_scale_factor():
-	playerXpScaleFactor = max(0.3, pow(0.90, playerLevel - 1))
+	playerXpScaleFactor = max(0.3, originalPlayerXpScaleFactor * pow(0.90, playerLevel - 1))
 
 func resetAttributes():
 	mainWeaponHitMax = 5
@@ -89,11 +90,13 @@ func resetAttributes():
 	playerInvulnTimeIndex = 0
 	mainWeaponSizeIndex = 0
 	playerLevel = 0
-	playerXpScaleFactor = 1.0
+	playerXpScaleFactor = originalPlayerXpScaleFactor
 	_attribute_updated()
 
 func _attribute_updated():
 	playerLevel += 1
+	if playerLevel == 26:
+		maxLevelReached.emit()
 	mainWeaponHitMax += mainWeaponHitMaxIncrease
 
 	if mainWeaponCooldown != mainWeaponCooldownLevels[mainWeaponCooldownIndex]:
@@ -123,7 +126,7 @@ func toggle_music():
 		musicOff.emit()
 
 func trySpawnHealthPack(pos: Vector2):
-	if randi_range(0, 59) == 17:
+	if randi_range(0, 39) == 17:
 		var healthPack = healthPackScene.instantiate()
 		healthPack.global_position = pos
 		get_tree().current_scene.add_child(healthPack)

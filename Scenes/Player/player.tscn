@@ -59,6 +59,7 @@ zoom = Vector2(1.2, 1.2)
 script = ExtResource("3_jhyir")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_kln2b")
 
 [node name="Main Weapon" type="Area2D" parent="."]
@@ -89,22 +90,24 @@ texture_filter = 1
 position = Vector2(-8, 5)
 texture = ExtResource("4_jlvik")
 
-[node name="VacuumSound" type="AudioStreamPlayer2D" parent="Main Weapon"]
-stream = ExtResource("10_74mp2")
-
 [node name="suck_timer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
 script = ExtResource("9_gk6dx")
 
 [node name="TrashCanDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrashCanDetector"]
 shape = SubResource("CircleShape2D_gk6dx")
 
-[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="Sfx" type="AudioStreamPlayer" parent="."]
+bus = &"Sfx"
+
+[node name="VacuumSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_74mp2")
 bus = &"Sfx"
 
 [connection signal="animation_finished" from="Main Weapon/CollisionPolygon2D/AnimatedSprite2D" to="Main Weapon" method="_on_animated_sprite_2d_animation_finished"]

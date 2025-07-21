@@ -33,6 +33,7 @@ var mousePosition
 
 @onready var col := $CollisionShape2D
 @onready var sfxPlayer := $Sfx
+@onready var spr = $Sprite2D
 
 var maxLevel := false
 var camera: Camera2D
@@ -48,6 +49,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
+	if !vulnerable:
+		spr.modulate.a -= 0.1
+		if spr.modulate.a < 0:
+			spr.modulate.a = 1.0
 
 func _physics_process(_delta: float) -> void:
 	rightHold = Input.is_action_pressed("right")
@@ -81,7 +86,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _gain_xp(xp: int):
-	if ui.xp < 100:
+	if Global.playerLevel < 27 and ui.xp < 100:
 		ui.xp += xp * Global.playerXpScaleFactor
 		if ui.xp >= 100 and !maxLevel:
 			Global.xpBarFull.emit()
@@ -89,6 +94,7 @@ func _gain_xp(xp: int):
 
 func play_enemy_sfx(enemy_type: Global.enemyType):
 	if !sfxPlayer.playing and Global.soundEnabled:
+		sfxPlayer.volume_db = 0.0
 		var rand = randf_range(0.9, 1.1)
 		match enemy_type:
 			Global.enemyType.PAPER:
@@ -107,6 +113,7 @@ func play_enemy_sfx(enemy_type: Global.enemyType):
 func _play_levelup_sfx(_trashCanInstance):
 	if Global.soundEnabled:
 		sfxPlayer.stop()
+		sfxPlayer.pitch_scale = 1.0
 		sfxPlayer.stream = levelUpSound
 		sfxPlayer.play()
 
@@ -143,10 +150,12 @@ func _lose_hp(hp: int):
 		if ui.hp > 0:
 			vulnerable = false
 			col.set_deferred("disabled", true)
+
 			camera.shake()
 			await get_tree().create_timer(Global.playerInvulnTime).timeout
 			vulnerable = true
 			col.disabled = false
+			spr.modulate.a = 1.0
 		else:
 			die()
 

@@ -12,3 +12,6 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _die():
 	call_deferred("queue_free")
+
+func _on_ttl_timeout() -> void:
+	_die()

@@ -5,13 +5,13 @@ var spr: AnimatedSprite2D
 var noSpr: Sprite2D
 var fullXp := false
 var suckTimer: Timer
-var sfxPlayer: AudioStreamPlayer2D
+var sfxPlayer: AudioStreamPlayer
 
 func _ready() -> void:
 	mainWeapon = $CollisionPolygon2D
 	spr = $CollisionPolygon2D/AnimatedSprite2D
 	suckTimer = $"../suck_timer"
-	sfxPlayer = $VacuumSound
+	sfxPlayer = $"../VacuumSound"
 
 	_on_suck_timer_timeout()
 
@@ -38,6 +38,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	spr.visible = false
 	if !fullXp:
 		if !sfxPlayer.playing and Global.soundEnabled:
+			sfxPlayer.volume_db = 0.0
 			var rand = randf_range(0.9, 1.1)
 			sfxPlayer.pitch_scale = rand
 			sfxPlayer.play()

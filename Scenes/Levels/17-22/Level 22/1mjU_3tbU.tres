@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_pd1ys")
-delay = 8.0
+delay = 3.0
 spawn_type = "normal"
 enemies = Dictionary[PackedScene, int]({
 ExtResource("1_gqb7y"): 1,

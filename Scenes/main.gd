@@ -1,7 +1,7 @@
 extends Node2D
 
-var audioPlayer: AudioStreamPlayer2D
-var deathPlayer: AudioStreamPlayer2D
+var audioPlayer: AudioStreamPlayer
+var deathPlayer: AudioStreamPlayer
 
 func _ready() -> void:
 	audioPlayer = $player/MainMusicPlayer
