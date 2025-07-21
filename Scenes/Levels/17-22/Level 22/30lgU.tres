@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=3 format=3 uid="uid://scu03fappwyn"]
+
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="1_cx8yd"]
+[ext_resource type="PackedScene" uid="uid://c6eh683nqgcl3" path="res://Scenes/Enemy/EnemyScenes/Uber/e_paper_large_uber.tscn" id="1_d2c1j"]
+
+[resource]
+script = ExtResource("1_cx8yd")
+delay = 8.0
+spawn_type = "normal"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_d2c1j"): 30
+})
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

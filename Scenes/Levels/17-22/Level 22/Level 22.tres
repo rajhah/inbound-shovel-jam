@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=11 format=3 uid="uid://boojvxcspqleh"]
+
+[ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_ypnhb"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_1il2c"]
+[ext_resource type="Resource" uid="uid://cwss0s6n6ami4" path="res://Scenes/Levels/17-22/Level 22/1mjU_2tbU_22smU.tres" id="3_v23sm"]
+[ext_resource type="Resource" uid="uid://dgodf0yd8t8iu" path="res://Scenes/Levels/17-22/Level 22/30mdU.tres" id="4_05wxa"]
+[ext_resource type="Resource" uid="uid://cmr4pt3kgjghr" path="res://Scenes/Levels/17-22/Level 22/1mjU_10lgU.tres" id="5_67ttw"]
+[ext_resource type="Resource" uid="uid://scu03fappwyn" path="res://Scenes/Levels/17-22/Level 22/30lgU.tres" id="6_hxso2"]
+[ext_resource type="Resource" uid="uid://cowcefx6hifer" path="res://Scenes/Levels/17-22/Level 22/1mjU_20mdU.tres" id="7_uypxp"]
+[ext_resource type="Resource" uid="uid://cgt5kpawd3gd8" path="res://Scenes/Levels/17-22/Level 22/30tbU_3mjU.tres" id="8_xqtql"]
+[ext_resource type="Resource" uid="uid://b7bdoijm0ce2h" path="res://Scenes/Levels/17-22/Level 22/1mjU_3tbU.tres" id="9_8ubm5"]
+[ext_resource type="Resource" uid="uid://iwdevnh1yb5g" path="res://Scenes/Levels/17-22/Level 22/10(1)mjU_6tbU.tres" id="10_a08w4"]
+
+[resource]
+script = ExtResource("1_ypnhb")
+waves = Array[ExtResource("2_1il2c")]([ExtResource("3_v23sm"), ExtResource("4_05wxa"), ExtResource("5_67ttw"), ExtResource("6_hxso2"), ExtResource("7_uypxp"), ExtResource("8_xqtql"), ExtResource("9_8ubm5"), ExtResource("10_a08w4")])
+timeBeforeStartingNextLevel = 2.0
+metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

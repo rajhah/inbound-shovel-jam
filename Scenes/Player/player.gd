@@ -60,7 +60,7 @@ func _physics_process(_delta: float) -> void:
 		Global.trashCanDeleted.emit()
 		Global.update_xp_scale_factor()
 	if Input.is_action_pressed("Sudoku"):
-		_lose_hp(100)
+		die()
 
 	if rightHold:
 		direction.x = 1

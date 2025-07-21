@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=5 format=3 uid="uid://ckt4dkkfppcx1"]
+
+[ext_resource type="PackedScene" uid="uid://blk8mn3cpwm75" path="res://Scenes/Enemy/EnemyScenes/Normal/e_milk_jug.tscn" id="1_83pa6"]
+[ext_resource type="PackedScene" uid="uid://bncu1bjf1i4c7" path="res://Scenes/Enemy/EnemyScenes/Special/e_tall_boy_special.tscn" id="2_j08bb"]
+[ext_resource type="PackedScene" uid="uid://dclsucossdu55" path="res://Scenes/Enemy/EnemyScenes/Special/e_paper_small_special.tscn" id="3_33dh0"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="4_aimqf"]
+
+[resource]
+script = ExtResource("4_aimqf")
+delay = 8.0
+spawn_type = "circle"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_83pa6"): 1,
+ExtResource("2_j08bb"): 2,
+ExtResource("3_33dh0"): 22
+})
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WaveResource" load_steps=4 format=3 uid="uid://0xiqiaf1irbd"]
+
+[ext_resource type="PackedScene" uid="uid://blk8mn3cpwm75" path="res://Scenes/Enemy/EnemyScenes/Normal/e_milk_jug.tscn" id="1_cnata"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="1_fopsy"]
+[ext_resource type="PackedScene" uid="uid://8ed5al6h3k8v" path="res://Scenes/Enemy/EnemyScenes/Normal/e_paper_basic.tscn" id="2_ri6jb"]
+
+[resource]
+script = ExtResource("1_fopsy")
+delay = 8.0
+spawn_type = "normal"
+enemies = Dictionary[PackedScene, int]({
+ExtResource("1_cnata"): 1,
+ExtResource("2_ri6jb"): 20
+})
+metadata/_custom_type_script = "uid://cfwuqeqaevoxv"

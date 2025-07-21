@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=6 format=3 uid="uid://dsccx87js28cm"]
+
+[ext_resource type="Script" uid="uid://bpee8s0i6gf6w" path="res://Scenes/Levels/level_resource.gd" id="1_81wxu"]
+[ext_resource type="Script" uid="uid://cfwuqeqaevoxv" path="res://Scenes/Levels/wave_resource.gd" id="2_i3o24"]
+[ext_resource type="Resource" uid="uid://bkc60nwepymie" path="res://Scenes/Levels/17-22/Level 18/10mdU.tres" id="3_35c5k"]
+[ext_resource type="Resource" uid="uid://ch11k8yseoqfu" path="res://Scenes/Levels/17-22/Level 18/30smU.tres" id="4_p11iw"]
+[ext_resource type="Resource" uid="uid://dp67ujj3djd7g" path="res://Scenes/Levels/17-22/Level 18/9mdU_1mjU_21smU.tres" id="5_to326"]
+
+[resource]
+script = ExtResource("1_81wxu")
+waves = Array[ExtResource("2_i3o24")]([ExtResource("3_35c5k"), ExtResource("4_p11iw"), ExtResource("5_to326")])
+timeBeforeStartingNextLevel = 2.0
+metadata/_custom_type_script = "uid://bpee8s0i6gf6w"

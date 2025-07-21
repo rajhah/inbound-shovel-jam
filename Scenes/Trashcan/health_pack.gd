@@ -2,7 +2,7 @@ extends Area2D
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "TrashCanDetector":
-		Global.healthPackDeleted.emit(-25)
+		Global.healthPackDeleted.emit(-12)
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", area.global_position, 0.25)

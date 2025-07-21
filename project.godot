@@ -27,6 +27,36 @@ Global="*res://Scenes/Global.gd"
 
 window/stretch/mode="viewport"
 
+[file_customization]
+
+folder_colors={
+"res://Scenes/Levels/1-8/": "green",
+"res://Scenes/Levels/1-8/Level 1/": "green",
+"res://Scenes/Levels/1-8/Level 2/": "green",
+"res://Scenes/Levels/1-8/Level 3/": "green",
+"res://Scenes/Levels/1-8/Level 4/": "green",
+"res://Scenes/Levels/1-8/Level 5/": "green",
+"res://Scenes/Levels/1-8/Level 6/": "green",
+"res://Scenes/Levels/1-8/Level 7/": "green",
+"res://Scenes/Levels/1-8/Level 8/": "green",
+"res://Scenes/Levels/17-22/": "purple",
+"res://Scenes/Levels/9-16/": "blue",
+"res://Scenes/Levels/9-16/Level 10/": "blue",
+"res://Scenes/Levels/9-16/Level 11/": "blue",
+"res://Scenes/Levels/9-16/Level 12/": "blue",
+"res://Scenes/Levels/9-16/Level 13/": "blue",
+"res://Scenes/Levels/9-16/Level 14/": "blue",
+"res://Scenes/Levels/9-16/Level 15/": "blue",
+"res://Scenes/Levels/9-16/Level 16/": "blue",
+"res://Scenes/Levels/9-16/Level 9/": "blue",
+"res://Scenes/Levels/Level 17/": "purple",
+"res://Scenes/Levels/Level 18/": "purple",
+"res://Scenes/Levels/Level 19/": "purple",
+"res://Scenes/Levels/Level 20/": "purple",
+"res://Scenes/Levels/Level 21/": "purple",
+"res://Scenes/Levels/Level 22/": "purple"
+}
+
 [input]
 
 left={

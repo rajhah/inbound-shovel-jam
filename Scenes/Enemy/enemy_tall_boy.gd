@@ -6,12 +6,11 @@ var bulletScene := preload("res://Scenes/Enemy/bullet.tscn")
 var shooting := false
 var target_angle: float
 var bullet: Bullet
-var bulletDead := true
 var piOverTwo := PI/2
 
 func _internal_ready():
 	var rand = randf_range(-0.2, 0.2)
-	shootTimer.wait_time += shootTime + rand
+	shootTimer.wait_time = shootTime + rand
 	bullet = bulletScene.instantiate()
 	bullet.visible = false
 	get_parent().add_child(bullet)
@@ -23,7 +22,7 @@ func _internal_process():
 	if downTimer.is_stopped():
 		rotation = target_angle
 		target_angle = (player.global_position - global_position).angle() + piOverTwo
-	if bullet and bulletDead:
+	if bullet and !bullet.visible:
 		bullet.global_position = global_position
 
 func _internal_get_collected():
@@ -32,7 +31,6 @@ func _internal_get_collected():
 func _on_shoot_timer_timeout() -> void:
 	if downTimer.is_stopped():
 		shooting = true
-		bulletDead = false
 		target_angle = (player.global_position - global_position).angle() + PI * 9/2
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "rotation", target_angle, 0.2)
@@ -61,5 +59,3 @@ func _calculate_movement_direction() -> Vector2:
 
 func _bulletDie(bul: Bullet):
 	bul.visible = false
-	bul.initialize(global_position, 0.0)
-	bulletDead = true

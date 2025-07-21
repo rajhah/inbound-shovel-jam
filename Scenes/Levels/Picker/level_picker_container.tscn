@@ -174,6 +174,71 @@ text = "Level 15"
 script = ExtResource("2_c25h4")
 level = 15
 
+[node name="Level 16" type="Button" parent="LevelPicker"]
+layout_mode = 0
+offset_left = 941.0
+offset_top = 180.0
+offset_right = 1012.0
+offset_bottom = 211.0
+text = "Level 16"
+script = ExtResource("2_c25h4")
+level = 16
+
+[node name="Level 17" type="Button" parent="LevelPicker"]
+offset_left = 177.0
+offset_top = 303.0
+offset_right = 244.0
+offset_bottom = 334.0
+text = "Level 17
+"
+script = ExtResource("2_c25h4")
+level = 17
+
+[node name="Level 18" type="Button" parent="LevelPicker"]
+offset_left = 284.0
+offset_top = 303.0
+offset_right = 355.0
+offset_bottom = 334.0
+text = "Level 18"
+script = ExtResource("2_c25h4")
+level = 18
+
+[node name="Level 19" type="Button" parent="LevelPicker"]
+offset_left = 391.0
+offset_top = 303.0
+offset_right = 462.0
+offset_bottom = 334.0
+text = "Level 19"
+script = ExtResource("2_c25h4")
+level = 19
+
+[node name="Level 20" type="Button" parent="LevelPicker"]
+offset_left = 491.0
+offset_top = 303.0
+offset_right = 562.0
+offset_bottom = 334.0
+text = "Level 20"
+script = ExtResource("2_c25h4")
+level = 20
+
+[node name="Level 21" type="Button" parent="LevelPicker"]
+offset_left = 601.0
+offset_top = 303.0
+offset_right = 672.0
+offset_bottom = 334.0
+text = "Level 21"
+script = ExtResource("2_c25h4")
+level = 21
+
+[node name="Level 22" type="Button" parent="LevelPicker"]
+offset_left = 720.0
+offset_top = 303.0
+offset_right = 791.0
+offset_bottom = 334.0
+text = "Level 22"
+script = ExtResource("2_c25h4")
+level = 22
+
 [connection signal="pressed" from="LevelPicker/Level 1" to="LevelPicker/Level 1" method="_on_pressed"]
 [connection signal="pressed" from="LevelPicker/Level 2" to="LevelPicker/Level 2" method="_on_pressed"]
 [connection signal="pressed" from="LevelPicker/Level 3" to="LevelPicker/Level 3" method="_on_pressed"]
@@ -189,3 +254,10 @@ level = 15
 [connection signal="pressed" from="LevelPicker/Level 13" to="LevelPicker/Level 13" method="_on_pressed"]
 [connection signal="pressed" from="LevelPicker/Level 14" to="LevelPicker/Level 14" method="_on_pressed"]
 [connection signal="pressed" from="LevelPicker/Level 15" to="LevelPicker/Level 15" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 16" to="LevelPicker/Level 16" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 17" to="LevelPicker/Level 17" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 18" to="LevelPicker/Level 18" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 19" to="LevelPicker/Level 19" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 20" to="LevelPicker/Level 20" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 21" to="LevelPicker/Level 21" method="_on_pressed"]
+[connection signal="pressed" from="LevelPicker/Level 22" to="LevelPicker/Level 22" method="_on_pressed"]

@@ -79,7 +79,7 @@ func _ready() -> void:
 	attributeUpdated.connect(_attribute_updated)
 
 func update_xp_scale_factor():
-	playerXpScaleFactor = max(0.1, pow(0.90, playerLevel - 1))
+	playerXpScaleFactor = max(0.3, pow(0.90, playerLevel - 1))
 
 func resetAttributes():
 	mainWeaponHitMax = 5
@@ -123,7 +123,7 @@ func toggle_music():
 		musicOff.emit()
 
 func trySpawnHealthPack(pos: Vector2):
-	if randi_range(0, 39) == 17:
+	if randi_range(0, 59) == 17:
 		var healthPack = healthPackScene.instantiate()
 		healthPack.global_position = pos
 		get_tree().current_scene.add_child(healthPack)
