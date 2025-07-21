@@ -25,8 +25,8 @@ var mainWeaponSizeIndex = 0
 var mainWeaponSize: float = 2.0
 
 var playerLevel: int = 0
-var playerXpScaleFactor: float = 1.3
-var originalPlayerXpScaleFactor: float = 1.3
+var playerXpScaleFactor: float = 1.2
+var originalPlayerXpScaleFactor: float = 1.2
 
 var mainWeaponHitMax: int = 5
 var mainWeaponHitMaxIncrease: int = 2
